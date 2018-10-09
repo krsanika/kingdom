@@ -1,0 +1,40 @@
+top:
+    prefix : /
+    type : annotation
+    resource : "@PristoAdminBundle/Controller/TopController.php"
+
+address:
+    prefix : /address
+    type : annotation
+    resource : "@PristoAdminBundle/Controller/AddressController.php"
+
+author:
+    prefix : /author
+    type : annotation
+    resource : "@PristoAdminBundle/Controller/AuthorController.php"
+
+qna:
+    prefix : /qna
+    type : annotation
+    resource : "@PristoAdminBundle/Controller/QnAController.php"
+
+etc:
+    prefix : /etc
+    type : annotation
+    resource : "@PristoAdminBundle/Controller/EtcController.php"
+
+user:
+    prefix : /user
+    type : annotation
+    resource : "@PristoAdminBundle/Controller/UserController.php"
+
+payment:
+    prefix : /payment
+    type : annotation
+    resource : "@PristoAdminBundle/Controller/PaymentController.php"
+
+csv:
+    prefix : /csv
+    type : annotation
+    resource : "@PristoAdminBundle/Controller/CsvController.php"
+    

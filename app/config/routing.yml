@@ -1,0 +1,13 @@
+    
+pristo_front:
+    resource: "@PristoFrontBundle/Resources/config/routing.yml"
+    prefix:   /
+
+pristo_admin:
+    resource: "@PristoAdminBundle/Resources/config/routing.yml"
+    prefix:   /admin
+    
+pristo_create:
+    prefix : /user
+    type : annotation
+    resource : "@PristoAdminBundle/Controller/CreateUserController.php"

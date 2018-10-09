@@ -1,0 +1,114 @@
+{% extends 'KingdomFrontBundle::layout.html.twig' %}
+{# empty Twig template #}
+
+{% block stylesheets %}	
+    {{ parent()}}
+    <link rel="stylesheet" href="{{asset("bundles/Kingdom/css/mypage.css")}}">    
+{% endblock %}
+
+{% block contents %}    
+<table class="topSizing"><tr>
+    <td>
+        {% include "KingdomFrontBundle:Mypage:_submenu.html.twig" %}
+    </td>
+    <td>
+<div class="mainContent">
+    <div class="myTitle">MY INFO 가입정보</div>
+    {% if user.imgPath == null %}
+        <img id="userImg" src="{{asset("bundles/Kingdom/image/icon/profile.png")}}">
+    {% else%}
+        <img id="userImg" src="{{user.imgPath}}">
+    {% endif %}
+    <div id="myData">
+        <span class="name bold">{{user.nick}} <br>{{user.username}}</span><br>
+        <span class="changeData bold red" onClick="window.open('{{url("mypage_change")}}','Change UserData','width=400,height=600') ; return false ;">비밀번호 변경하기</span>
+    </div>
+    <div class="both-clear"></div>
+    <div class="myTitle">
+        MY ADRESS 나의 배송지
+        {% if count != 5 %}
+            <span class="right bold red" onclick="Address.viewAddForm()">주소 추가하기</span>
+        {% endif %}
+    </div>
+        <table>            
+        {% for address in addresses %}
+            <tr  class="addressBox">
+                <td>
+                    <input id="check{{address.id}}" class="check" type="radio" {% if address.id == app.user.addressId.id %} checked {% endif %}>
+{#                <label class="checklabel" for="check{{address.id}}" onclick="mainAdr({{address.id}});"></label>#}
+                </td>
+                <td class="adrName">
+                    <div class="adrText {% if address.id == app.user.addressId.id %} mainAdr {% endif %}" >{{address.name}}</div>                    
+                </td>
+                <td>
+                <div class="adrText {% if address.id == app.user.addressId.id %} mainAdr {% endif %}">{{address.codes}} {{address.text}}</div>
+                    <a href="{{url("address_remove", {"id": address.id})}}">
+                        <img class="removeAddress" src="{{asset("bundles/Kingdom/image/icon/button_count_minus.png")}}">
+                    </a>
+                </td>                            
+            </tr>            
+        {% endfor %}        
+    </table>
+    <form id="addForm" method="post" action="{{url("address_add")}}">
+        주소지명<input id="name" name="name" type="text" maxlength="16"><br>
+        우편번호 <input id="pc1" name="pc1" type="text" > - <input id="pc2" name="pc2" type="text" >
+        <input type="button" onclick="Address.showDaumPostcode()" value="우편번호 찾기"><br>
+        <div id="searchWrap">
+            <img id="btnFoldWrap" src="//i1.daumcdn.net/localimg/localimages/07/postcode/320/close.png" onclick="Address.closeDaumPostcode()" alt="접기 버튼">
+        </div>
+        주소 <input id="addrStr" class="addText" name="addrStr" type="text" ><br>
+        상세주소 <input class="addText" name="addrDetail" type="text" ><br>        
+        <input id="isSelected" name="isSelected[]" type="checkbox" >기본 배송처로 사용<br>        
+        <input id="addSubmit" type="submit" value="추가">
+        <input id="userId" type="hidden" name="userId" value="{{app.user.id}}">
+    </form>
+        <br>    
+    {% for flashMessage in app.session.flashBag.get('error') %}
+         {{ flashMessage }}
+    {% endfor %}                                   
+
+    <div class="myTitle">QnA 질문과 답변
+        <span class="right bold red" style="left : 760px"  onclick="popUp(null, 'addQna')">질문 추가하기</span>
+    </div>
+
+    <table class="qnaBox">
+    {% for myQna in myQnas %}
+        <tr class="qnaTr {% if myQna.status ==2 %} gray {% endif %} ">
+            <td class="qnaDate">{{myQna.updated|date("m월d일 H:i")}}</td>
+            <td class="qnaSubject" onclick="getQnaRead({{myQna.id}})">{{myQna.subject}}</td>
+            <td class="qnaStatus">
+            {%if myQna.status ==1 %}
+                답변대기중
+            {% else %}
+                답변완료
+            {% endif %}
+            </td>
+{#        {{myQna.context|nl2br}}<br>
+        {% for file in myQna.files %}
+            <img class="qnaThumb" src="{{asset("bundles/Kingdom/image/"~file.getWebPath)}}">
+        {% endfor %}#}
+        </tr>
+    {% endfor %}
+    </table>
+</div>            
+    </td>
+</tr></table>
+    
+    
+{% include "KingdomFrontBundle:Mypage:qna.html.twig" %}
+
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}    
+<script src="http://dmaps.daum.net/map_js_init/postcode.js"></script>
+<script src="{{asset("bundles/Kingdom/js/address.js")}}"></script>
+<script src="{{asset("bundles/Kingdom/js/mypage.js")}}"></script>
+<script>
+var action = "{{getActionName()}}";
+var qnaUrl = "{{url("mypage_qna")}}";
+
+</script>
+{% endblock %}
+

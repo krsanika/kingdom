@@ -1,0 +1,18 @@
+parameters:
+#   Kingdom_front.example.class: Kingdom\FrontBundle\Example
+    webpath : %kernel.root_dir%/../web/
+    items : %kernel.root_dir%/../web/bundles/Kingdom/image/items/
+    
+
+services:
+    Kingdom.twig.Kingdom_extension:
+        class: Kingdom\FrontBundle\Twig\KingdomExtension
+#        arguments : [ "@request" ]
+        calls :
+            - [setRequest, ["@?request="]]
+        tags:
+            - { name: twig.extension }    
+                
+#    Kingdom_front.example:
+#        class: %Kingdom_front.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

@@ -1,0 +1,38 @@
+{% extends 'KingdomFrontBundle::popup.html.twig' %}
+
+{% block title %} PICker ADMIN {% endblock %}
+
+{% block stylesheets %}	
+    {{ parent()}}
+    <link rel="stylesheet" href="{{asset("bundles/Kingdom/css/mypage.css")}}">
+{% endblock %}
+
+{% block contents %}        
+    <h3> QnA</h3><br>
+    <br>
+    <table>
+        <tr>
+            <td>ID</td>
+            <td>{{qna.id}}</td>
+        </tr>
+        <tr>
+            <td>발신자</td>
+            <td>UserId : {{qna.userId.id}} /{{qna.userId.nick}}</td>
+        </tr>
+        <tr>
+            <td>제목</td>
+            <td>{{qna.subject}}</td>
+        </tr>
+        <tr>
+            <td>내용</td>
+            <td>{{qna.context|nl2br}}</td>
+        </tr>
+        <tr>
+            <td>주문번호</td>
+            <td>{{qna.orderedId.id}}</td>
+        </tr>
+    </table>
+    
+    
+    
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'KingdomFrontBundle::layout.html.twig' %}
+
+{% block stylesheets %}	
+    {{ parent()}}
+    <link rel="stylesheet" href="{{asset('bundles/Kingdom/css/product.css')}}" />
+    <link rel="stylesheet" href="{{asset('bundles/Kingdom/css/title.css')}}" />    
+    <link rel="stylesheet" href="{{asset('bundles/Kingdom/css/login.css')}}" />    
+{% endblock %}
+
+{% block contents %}    
+<div id ="refer" class="full"></div>
+<div id ="blackScreen" class="full"></div>
+<div id=productHead>
+    <ul class="slides">
+        <li>
+            <img class ="headImg" src="{{asset("bundles/Kingdom/image/etc/picker_top_01.png")}}">
+        </li>
+        <li>
+            <img class ="headImg" src="{{asset("bundles/Kingdom/image/etc/picker_top_03.png")}}">
+        </li>
+    </ul>
+</div>       
+    
+{% include "KingdomFrontBundle:Product:items.html.twig"  with {'products' : products}%}
+{% include "KingdomFrontBundle:Product:detail.html.twig" %}
+{% include "KingdomFrontBundle:Title:login.html.twig" %}
+    
+
+
+
+{% endblock %}
+{% block javascripts %}	
+    {{ parent()}}
+    <script type="text/javascript" src="{{asset("bundles/Kingdom/js/jquery.bottom-1.0.js")}}"></script>
+    <script type="text/javascript" src="{{asset("bundles/Kingdom/js/preloadjs-0.4.1.min.js")}}"></script>
+    <script type="text/javascript" src="{{asset("bundles/Kingdom/js/jquery.easing.min.js")}}"></script>
+    <script type="text/javascript" src="{{asset("bundles/Kingdom/js/product.js")}}"></script>
+    <script type="text/javascript" src="{{asset("bundles/Kingdom/js/blocksit.min.js")}}"></script>
+    <script type="text/javascript"  src="{{asset("bundles/Kingdom/js/login.js")}}"></script>   
+    <script type="text/javascript"  src="{{asset("bundles/Kingdom/js/title.js")}}"></script>   
+    <script type="text/javascript">         
+var detailUrl = "{{url("product_detail")}}";
+var addUrl = "{{url("product_add")}}";
+var thumbUrl = "{{asset("bundles/Kingdom/image/items/")}}";
+var refPath = "{{asset(ref)}}";
+var quick = null;
+    </script>
+{% endblock %}

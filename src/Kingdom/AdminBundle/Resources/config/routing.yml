@@ -1,0 +1,40 @@
+top:
+    prefix : /
+    type : annotation
+    resource : "@KingdomAdminBundle/Controller/TopController.php"
+
+address:
+    prefix : /address
+    type : annotation
+    resource : "@KingdomAdminBundle/Controller/AddressController.php"
+
+author:
+    prefix : /author
+    type : annotation
+    resource : "@KingdomAdminBundle/Controller/AuthorController.php"
+
+qna:
+    prefix : /qna
+    type : annotation
+    resource : "@KingdomAdminBundle/Controller/QnAController.php"
+
+etc:
+    prefix : /etc
+    type : annotation
+    resource : "@KingdomAdminBundle/Controller/EtcController.php"
+
+user:
+    prefix : /user
+    type : annotation
+    resource : "@KingdomAdminBundle/Controller/UserController.php"
+
+payment:
+    prefix : /payment
+    type : annotation
+    resource : "@KingdomAdminBundle/Controller/PaymentController.php"
+
+csv:
+    prefix : /csv
+    type : annotation
+    resource : "@KingdomAdminBundle/Controller/CsvController.php"
+    

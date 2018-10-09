@@ -1,0 +1,53 @@
+{% extends 'KingdomFrontBundle::layout.html.twig' %}
+
+{% block title %}Edit User{% endblock %}
+
+{% block body %}
+<h1>PICker 회원가입</h1>
+
+{{form_start(form)}}
+
+    <table>
+        <tr>
+            <td style="vertical-align: top;">
+                이메일<br>
+                비밀번호<br>
+                비밀번호 재입력<br>
+                닉네임<br>
+            </td>            
+            <td>
+                {{form_widget(form.email)}}{{form_errors(form.email)}}<br>                
+                {{form_widget(form.password)}}{{form_errors(form.password)}}<br>
+                <input name="repass" type="password"><br>
+                {{form_widget(form.nick)}}{{form_errors(form.nick)}}<br>
+                
+            </td>
+        </tr>
+        <tr>            
+    </table>            
+            <input id="editSubmit" type="button" value="확인메일을 전송" onclick="Edit.inputCheck()">
+            {{ form_widget(form) }}
+{{form_end(form)}}
+
+<div>
+    <a href="{{ path('login') }}">로그인 화면으로 돌아가기</a>
+</div>
+
+<script>
+    
+var Edit = {        
+    inputCheck : function(){
+        var pass = $("input[name='form[password]']").val();
+        var repass = $("input[name='repass']").val();
+
+        if(pass != repass ) alert("비밀번호가 다릅니다!");
+        else $("form").submit();
+    }
+    
+}
+
+
+</script>    
+
+{% endblock %}
+

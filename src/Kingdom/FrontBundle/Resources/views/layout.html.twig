@@ -1,0 +1,46 @@
+{% extends "::base.html.twig" %}
+{% block title %} PICker {% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('bundles/Kingdom/css/common.css')}}" />
+    <link rel="stylesheet" href="{{asset('bundles/Kingdom/css/flexslider.css')}}" />   
+    <!-- 합쳐지고 최소화된 최신 CSS -->
+<style type='text/css'>
+    @font-face{
+	font-family: "Nanum Gothic";
+	src: url('{{asset("bundles/Kingdom/css/fonts/NanumGothic.eot")}}');
+	src: url('{{asset("bundles/Kingdom/css/fonts/NanumGothic.eot?#iefix")}}') format('embedded-opentype'),
+	url('{{asset("bundles/Kingdom/css/fonts/NanumGothic.woff")}}') format('woff'),
+	url('{{asset("bundles/Kingdom/css/fonts/NanumGothic.ttf")}}') format('truetype');
+	url('{{asset("bundles/Kingdom/css/fonts/NanumGothic.svg#NanumGothic")}}') format('svg')
+	src: local(※), url('{{asset("bundles/Kingdom/css/fonts/NanumGothic.woff")}}') format('woff');
+}
+</style>
+{% endblock %}
+
+{% block body %}
+<div id="contents">
+    {% block header %}
+        {% include "KingdomFrontBundle::header.html.twig" %}
+    {% endblock %}
+    {% block contents %}
+
+    {% endblock %}
+
+    {% block footer %}
+        {% include "KingdomFrontBundle::footer.html.twig" %}
+    {% endblock %}
+</div>
+
+
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript" src="{{asset("bundles/Kingdom/js/jquery-2.1.1.min.js")}}"></script>
+<script type="text/javascript" src="{{asset("bundles/Kingdom/js/flexslider_min.js")}}"></script>
+<script type="text/javascript" src="{{asset("bundles/Kingdom/js/common.js")}}"></script>
+<script type="text/javascript">
+</script>
+
+{% endblock %}
+

@@ -1,0 +1,31 @@
+{% extends "::base.html.twig" %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('bundles/Kingdom/css/common.css')}}" />    
+{% endblock %}
+
+{% block body %}
+    {% block header %}
+    {% endblock %}
+    
+<div id="contents">
+    {% block contents %}
+
+    {% endblock %}
+
+    {% block footer %}
+		{% include "KingdomFrontBundle::footer.html.twig" %}
+    {% endblock %}
+</div>
+
+
+{% endblock %}
+
+{% block javascripts %}
+<script src="{{asset("bundles/Kingdom/js/jquery-2.1.1.min.js")}}"></script>
+<script src="{{asset("bundles/Kingdom/js/flexslider_min.js")}}"></script>
+<script type="text/javascript">    
+</script>
+
+{% endblock %}
+

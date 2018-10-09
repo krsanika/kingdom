@@ -1,0 +1,107 @@
+{% extends 'KingdomFrontBundle::layout.html.twig' %}
+{# empty Twig template #}
+
+{% block stylesheets %}	
+    {{ parent()}}
+    <link rel="stylesheet" href="{{asset('bundles/Kingdom/css/product.css')}}" />
+{% endblock %}
+
+{% block contents %}
+
+<div class="center">
+    <div id="detailBox">    
+        <div id="authorBox">
+            <div id="authorImage" class="detailIcon"></div>
+            <div id="detailFlag" class="detailIcon" style="background-image: url({{asset("bundles/Kingdom/image/icon/flag/01.png")}});"></div>
+            <div id="authorData">
+                <div id="authorName" >{{item.productId.authorId.name}}</div>
+                <div id="authorDescript">{{item.productId.authorId.descript}}</div>
+            </div>
+        </div>
+        <div id="detailTable">        
+            <div id="imageView">
+                <div id="slider" class="flexslider">
+                    <ul class="slides"></ul>
+                </div>
+            </div>
+            <div id="infoBox">
+                <table style="height:100%"><tr><td>
+                    <div>
+                        <div id="name">{{item.productId.name}}</div>
+                        <div id="category">{{item.category|category}}</div>
+                        <div id="phone">
+                            <form>
+                            <select id="phoneSub" class="subCategory" onChange="Detail.slideChange(this.value)" style="background : url({{asset("bundles/Kingdom/image/icon/button_drop.png")}}) no-repeat right">
+                                <option value="">선택해주세요 </option>
+                                <option value="1">{{1|phone}} </option>
+                                <option value="2">{{2|phone}} </option>
+                                <option value="3">{{3|phone}} </option>
+                                <option value="4">{{4|phone}} </option>
+                                <option value="5">{{5|phone}} </option>
+                                <option value="6">{{6|phone}} </option>
+                                <option value="7">{{7|phone}} </option>
+                                <option value="8">{{8|phone}} </option>
+                                <option value="9">{{9|phone}} </option>                            
+                            </select>                            
+                            </form>
+                        </div>
+                        <div id="tablet">
+                            <form>
+                            <select id="tabletSub" class="subCategory" onChange="Detail.slideChange(this.value)" style="background : url({{asset("bundles/Kingdom/image/icon/button_drop.png")}}) no-repeat right">
+                                <option value="">선택해주세요 </option>
+                                <option value="1">{{1|tablet}} </option>
+                                <option value="2">{{2|tablet}} </option>
+                                <option value="3">{{3|tablet}} </option>
+                                <option value="4">{{4|tablet}} </option>
+                                <option value="5">{{5|tablet}} </option>
+                                <option value="6">{{6|tablet}} </option>
+                            </select>
+                            </form>
+                        </div>
+                                <div id="value">{{(item.category|price)|number_format()}}원</div>
+                    </div>
+                    <div class="middleLiner">
+                        <table class="innerTable"><tr>
+                        <td width="100">
+                            상품코드<br>
+                            배송비<br>
+                            제작회사<br>
+                            제작국가<br>
+                        </td>
+                        <td>
+                            <span id="tagNum">{{item.productId.authorId.id|codes(item.productId.num, item.category)}}</span><br>
+                            50000원 이상 구매시 무료배송 (배송료 <span id="createrDelPrice">{{item.createrId.delprice}}</span>원)<br>
+                            <span id="createrName">{{item.createrId.name}}</span><br>
+                            한국 <br>
+                        </td>
+                        </tr></table>
+                    </div>            
+                    <div id="descript">{{item.descript|nl2br}}</div>            
+                    <img id="goBuying" class="detailBtn" src="{{asset("bundles/Kingdom/image/icon/button_buying.png")}}" onclick="Detail.setCart(true);">
+                    <img id="goCart" class="detailBtn" src="{{asset("bundles/Kingdom/image/icon/button_cart.png")}}" onclick="Detail.setCart(false);">
+                </td></tr></table>
+            </div>
+        </div>
+        <div id="otherGoods"></div>
+        <div class="clear-both"></div>
+        <div id="authorGoods"></div>    
+    </div>
+</div>
+                {#<div class="screen"></div>
+#}
+
+{% endblock %}
+
+
+{% block javascripts %}	
+    {{ parent()}}
+    <script src="{{asset("bundles/Kingdom/js/detail.js")}}"></script>
+    <script type="text/javascript">
+        var addUrl = "{{url("product_add")}}";        
+        var addCartUrl = "{{url("product_addCart")}}";
+        var buyInputUrl = "{{url("mypage_buyInput")}}";
+        var thumbUrl = "{{asset("bundles/Kingdom/image/items/")}}";
+    </script>
+   
+{% endblock %}
+

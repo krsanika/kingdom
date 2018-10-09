@@ -1,0 +1,31 @@
+{# empty Twig template #}
+<div id="header">
+    <div id='headerMenu'>
+        <div id='menuText'>
+            <a style="color : white; margin : 0 6%;" href="{{url("product_index")}}">BEAUTIFUL THINGS</a>
+            <a style="color : #333; margin : 0 6%;" href=""> ARTISTS</a>
+            <a style="color : #333; margin : 0 6%;" href=""> NEWS</a>
+        </div>
+        <div id=logoImg style='background-image : url({{asset("bundles/Kingdom/image/icon/logo_beta.png")}})'></div>
+            
+    {% if getControllerName() == "login" or  getControllerName() == "title" %}
+        <div id="loginBox" onclick="Login.popUp();">LOGIN & SIGNUP</div>
+    {% else %}
+        <div id="userBox" class='over950' >
+            {%if app.user.imgPath ==null %}
+            <div id="userBoxMyImage" style="background-image: url({{asset("bundles/Kingdom/image/icon/profile.png")}});"></div>
+            {% else %}
+            <div id="userBoxMyImage" style="background-image: url({{asset(app.user.imgPath)}});"></div>
+            {% endif %}
+            <span id="userBoxText">안녕하세요, <a href='{{url("mypage_index")}}' style="color:white;">{{app.user.nick}}</a>님</span>
+        </div>
+    {% endif %}
+            
+    </div>
+    
+</div>
+<div class="clear-both"></div>
+
+
+
+

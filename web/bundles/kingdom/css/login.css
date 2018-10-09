@@ -1,0 +1,145 @@
+#loginScreen{
+    display: none;
+    background-color : rgba(0,0,0,0.5);
+    z-index: 1;    
+}
+
+#loginBox{
+    color : white;
+    z-index : 101;
+}
+
+.spacer{
+    width : 1px;
+    height : 5px;    
+}
+
+
+.loginImg{
+    width : 100%;
+    height : 198px;
+    background-size : cover;
+}
+
+.loginInfo{
+    padding-top : 70px;
+    text-align: center;    
+}
+
+.decoText{
+    line-height: 25px;
+    font-weight: bold;    
+}
+
+#buttonSet{
+    margin-top : 60px;
+    margin-bottom : 60px;
+    padding-left : 100px;
+    text-align: left;
+}
+
+.loginLiner{
+    font-size : 14px;
+    display: table-cell;
+    vertical-align: middle;
+}
+.loginIcon{
+    margin-right: 22px;
+    width : 32px;
+    height : 32px;
+}
+
+.noneInput{
+    width : 330px;    
+    border : none;    
+    border-bottom :#cccccc 1px solid;
+    background-color: rgba(0, 0, 0, 0);
+    font-size: 14px;
+    text-align: center;
+}
+
+.forgotInput{
+    width : 400px;
+    font-size : 14px;
+    border : none;
+    text-align : center;
+    border-bottom : #cccccc 1px solid;
+    background-color: rgba(0, 0, 0, 0);
+    outline: 0px none black;
+}
+#forgotText{
+    font-size : 19px;
+}
+
+.submitBtn{
+    left: -100px;
+    bottom: 20px;
+    position: absolute;
+    margin-left: 50%;
+    font-size: 19px;
+    min-width: 200px;
+    min-height: 19px;
+    text-align: center;
+}
+
+.emailLabel{
+font-size: 14px;
+position: relative;
+top: 19px;
+z-index: -1;
+color: #252525;
+}
+
+#loginForm{
+    margin : 5px 70px;        
+}
+
+#forgotForm{
+    margin-top : 60px;
+    margin-bottom : 125px;    
+}
+    
+.loginText{
+    font-size: 14px;
+    margin-top: -33px;
+    position: relative;
+    margin-left: 41px;
+    line-height: 33px;
+}
+
+.loginInput{
+    width : 100%;
+    font-size : 14px;
+    border : none;
+    border-bottom : #cccccc 1px solid;
+    background-color: rgba(0, 0, 0, 0);    
+}
+
+.ajaxGet{
+    min-width : 300px;
+    min-height : 60px;
+    text-align: center;
+    font-size : 14px;    
+    margin-top: 30px;    
+}
+
+
+#blackScreen{
+    background-size : cover;
+    z-index : 300;
+    background-color : black;
+}
+
+#refer{
+    background-size : 100% 100%;
+    z-index : 200;
+}
+
+#goNewone{
+    color: #940c0c;
+    text-align: left;
+    font-size: 14px;
+    margin-top: 10px;
+    width: 330px;
+    margin-left: 64px;    
+}

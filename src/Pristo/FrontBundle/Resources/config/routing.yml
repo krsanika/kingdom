@@ -1,0 +1,26 @@
+title:
+    prefix : /
+    type : annotation
+    resource : "@PristoFrontBundle/Controller/TitleController.php"
+  
+login:
+    prefix : /login/
+    type : annotation
+    resource : "@PristoFrontBundle/Controller/LoginController.php"
+
+    
+login_check:
+    pattern : /login_check
+    
+logout :
+    pattern : /logout
+    
+mypage:
+    prefix : /mypage/
+    type : annotation
+    resource : "@PristoFrontBundle/Controller/MypageController.php"
+
+product:
+    prefix : /product/
+    type : annotation
+    resource : "@PristoFrontBundle/Controller/ProductController.php"

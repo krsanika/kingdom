@@ -1,0 +1,117 @@
+{% extends 'KingdomFrontBundle::layout.html.twig' %}
+{# empty Twig template #}
+
+{% block stylesheets %}
+    {{ parent()}}
+    <link rel="stylesheet" href="{{asset('bundles/Kingdom/css/login.css')}}" />
+{% endblock %}
+
+{% block contents %}
+<div id="loginBg" class="background" style="background-image : url({{asset("bundles/Kingdom/image/login/login_background.jpg")}})">
+<div id="gradation" class="background" style="background-image : url({{asset("bundles/Kingdom/image/login/gradation.png")}})">
+    <div id="textBox">
+        <span id="welcome">환영합니다.</span> <br>
+        <span>별도의 회원가입 없이 네이버, 페이스북 아이디로 로그인이 가능합니다.</span<br>
+      
+                
+{#      <div class="noneText" style="margin-bottom : 15px"><strong>비회원이신가요?</strong></span><br>
+      <form id="noneForm">
+          <span class="noneLabel">주문번호</span>
+          <input class="noneInput" type="number" name="orderedId">
+          <br>
+          <span class="noneLabel">메일주소</span>
+          <input class="noneInput" type="text" name="email">
+      </form>
+
+    </div>                
+#}
+    </div></div>
+      
+<div id="loginPop" class="popup loginPopup">
+    <div class="loginTitle">메일주소로 로그인하기</div>
+    <div class="loginContent">
+    <form id="loginForm" action="{{ url('login_check') }}" method="post">
+         <div class="loginText">메일주소</div>
+         <input type="text" id="username" name="_username" class="loginInput"/><br>
+         <div class="loginText">비밀번호</div>
+         <input type="password" id="password" name="_password" class="loginInput"/><br>
+         <input type="hidden" name="_target_path" value="/mypage" />
+     </form>            
+{#     <a href="{{url("user_edit", {"id" : 0})}}" style="text-decoration : none;">#}
+         <div class="caution" onclick="Login.switch('login', 'join')">PICker에 처음 가입합니다.</div>
+{#     {% for flashMessage in app.session.flashbag.get('change') %}
+         <div class="flash-notice">
+             {{ flashMessage }}
+         </div>
+     {% endfor %}    
+#}
+        <div class="loginBtn">
+            <div class="forgot" onclick="Login.switch('login', 'forgot')">비밀번호를 잊어버렸나요?</div>
+            <button class="loginSubmit" type="submit" name="login" onclick="$('#loginForm').submit()"/>로그인</button>
+        </div>
+</div>    
+</div>
+        
+<div id="forgotPop" class="loginPopup popup">
+    <div class="loginTitle">
+        <div class="backArrow" style="background-image : url({{asset("bundles/Kingdom/image/icon/button_drop.png")}});" onclick="Login.switch('forgot', 'login')"></div>
+        <span>비밀번호 새로 발급받기</span>
+    </div>
+    <div class="loginContent">
+        <form id="forgotForm" action='{{url("user_sendpass")}}' method='post'>
+             <div class="loginText" style="color : gray">가입한 메일주소</div>
+             <input type="text" id="changeUsername" name="username" class="noneInput" required/><br>
+        </form>
+        <br><br><br>
+        <span class="caution" style="margin : auto">새로운 비밀번호를 발급받을 메일주소를 기입주세요</span>
+        <div class="loginBtn">
+            <button class="loginSubmit" onclick="$('#forgotForm').submit()">메일 발송</button>
+        </div>
+    </div>
+</div>
+             
+<div id="joinPop" class="loginPopup popup">
+    <div class="loginTitle">
+        <div class="backArrow" style="background-image : url({{asset("bundles/Kingdom/image/icon/button_drop.png")}});" onclick="Login.switch('join', 'login')"></div>
+        <span>새로운 회원가입</span>
+    </div>
+    <div class="loginContent">
+        <form id="joinForm" action='{{url("user_new")}}' method='post'>
+             <div class="loginText" style="color : gray">메일주소</div>
+             <input type="email" id="newUsername" name="username" class="noneInput" required/><br>
+             <div class="loginText" style="color : gray">패스워드</div>
+             <input type="password" id="pass" name="password" class="noneInput" required/><br>
+        </form>
+        <br><br><br>
+        <span class="caution" style="margin : auto">위 주소의 메일함에서 가입신청메일을 확인해주세요!</span>
+     
+        <div class="loginBtn">
+            <button class="loginSubmit" onclick="$('#joinForm').submit()">메일 발송</button>
+        </div>
+    </div>
+</div>
+     
+{% endblock %}
+
+{% block javascripts %}
+    {{parent()}}
+<script>
+var naverState ="{{naverState}}";
+var naverAppId ="{{naverAppId}}";
+var Login = {
+    switch : function(hide, show){
+        $("#"+hide+"Pop").hide(500);
+        $("#"+show+"Pop").show(500);
+    }
+};
+
+$(function(){
+    $("#contents").css({overflow : "hidden"});
+    var height = $(window).height() - $("#header").height() - $("#footer").height();
+    console.log($("#loginBg").height(), height);
+    $("#loginBg").height(height-15);
+});
+
+</script>
+      <script type="text/javascript" src="{{asset("bundles/Kingdom/js/naverApi.js")}}"></script>
+{% endblock %}      

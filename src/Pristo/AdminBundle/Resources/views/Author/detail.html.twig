@@ -1,0 +1,146 @@
+{% extends  'PristoAdminBundle::layout.html.twig' %}
+{% block contents %}
+    <a href="{{url("adminTop_index")}}">Admin</a> > <a href="{{url("author_index")}}">Author</a> > {{author.name}} <br>
+    <b>개인정보</b><br>
+<table>
+    <tr>
+        <td>이름</td>
+        <td>{{author.name}}</td>
+    </tr>
+    <tr>
+        <td>메일주소</td>
+        <td>{{author.userId.username}}</td>
+    </tr>    
+    <tr>
+        <td>국적</td>
+        <td>
+            <img src="{{asset("bundles/kingdom/image/icon/flag/"~author.region|sprintf~".png")}}">
+        </td>
+    </tr>
+    <tr>
+        <td>자기소개</td>
+        <td>{{author.descript|nl2br}}</td>
+    </tr>
+    <tr>
+        <td>프로필사진</td>
+        <td>
+            <img src="{{asset("bundles/kingdom/image/"~author.image.getWebPath)}}" width="100px">            
+{#            <form action ="#" method="POST" {{form_enctype(imageForm)}}>#}
+                {{form(imageForm)}}                
+{#            </form>#}
+                {% if app.session.flashBag.has('image') %}
+                 <span style="display : none;" >{{ app.session.flashBag.get("image")}}</span>
+                        upload Success!
+                {% endif %}            
+        </td>        
+    </tr>
+</table>
+<b>상품정보</b><br>
+{%for product in author.products %}    
+    <div style="border : green 1px dashed; margin : 5px">
+        {{product.name}}
+        {{product.genre}}
+        <br>
+        {%for item in product.items %}
+            <form id="statusForm{{item.id}}" method='post' action='{{url("author_changeItemStatus")}}' >
+                <select name='status' onChange="statusSubmit({{item.id}});">
+                    <option value="1" {% if item.status ==1%} selected{%endif%}>{{1|itemStatus}}</option>
+                    <option value="2" {% if item.status ==2%} selected{%endif%}>{{2|itemStatus}}</option>
+                    <option value="3" {% if item.status ==3%} selected{%endif%}>{{3|itemStatus}}</option>
+                </select>
+                <input type="hidden" name="id" value="{{item.id}}">
+                <input type="hidden" name="authorId" value="{{author.id}}">
+            </form>
+            {{item.category|category}} / {{author.id|codes(product.num, item.category)}}
+{#                {%for image in images[product.num][item.category] %}#}
+                {%for image in item.files %}
+                    <img src="{{asset("bundles/kingdom/image/"~image.getWebPath)}}" width = 100>
+                {%endfor %}
+            <br>
+        {% endfor %}
+    
+    </div>        
+{% endfor %}
+    <div style="border : blue 1px dashed; margin : 5px">
+        <button onClick="">작품추가</button>
+        {{form(productForm)}}
+        {% if app.session.flashBag.has('product') %}
+         <span style="display : none;" >{{ app.session.flashBag.get("product")}}</span>
+                create Product Success!
+        {% endif %}            
+    </div>        
+    <div style="border : purple 1px dashed; margin : 5px">
+        <button onClick="">상품추가</button>
+        {{form_start(itemForm)}}
+        상품{{form_widget(itemForm.pId)}}
+        제작회사{{form_widget(itemForm.cId)}}
+        종류{{form_widget(itemForm.category)}}<br>
+        설명문{{form_widget(itemForm.descript)}}                
+        <ul id="fileForm" class="files" data-prototype="{{form_widget(itemForm.files.vars.prototype)|e}}">
+        {% for itemFile in itemForm.files %}
+            <li>{{ form_widget(itemFile.file) }}</li>
+        {% endfor %}
+        </ul>        
+        {{form_end(itemForm)}}
+        {% if app.session.flashBag.has('item') %}
+         <span style="display : none;" >{{ app.session.flashBag.get("item")}}</span>
+                create Item Success!
+        {% endif %}            
+    </div>        
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}    
+    
+<script>
+var $collectionHolder;
+
+// setup an "add a file" link
+var $addFileLink = $('<a href="#" class="add_file_link">Add image</a>');
+var $newLinkLi = $('<li>').append($addFileLink);
+
+$(function() {
+    // Get the ul that holds the collection of tags
+    $collectionHolder = $('#fileForm');
+
+    // add the "add a tag" anchor and li to the tags ul
+    $collectionHolder.append($newLinkLi);
+
+    // count the current form inputs we have (e.g. 2), use that as the new
+    // index when inserting a new item (e.g. 2)
+    $collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+    $addFileLink.on('click', function(e) {
+        // prevent the link from creating a "#" on the URL
+        e.preventDefault();
+        // add a new tag form (see next code block)
+        addFileForm($collectionHolder, $newLinkLi);
+    });
+});   
+
+    function statusSubmit(id){
+        $("#statusForm"+id).submit();
+    }
+
+function addFileForm($collectionHolder, $newLinkLi) {
+    // Get the data-prototype explained earlier
+    var prototype = $collectionHolder.data('prototype');
+    
+    // get the new index
+    var index = $collectionHolder.data('index');
+    // Replace '__name__' in the prototype's HTML to
+    // instead be a number based on how many items we have
+    var newForm = prototype.replace(/__name__/g, index);
+    // increase the index with one for the next item
+    $collectionHolder.data('index', index + 1);
+    // Display the form in the page in an li, before the "Add a tag" link li
+    var $newFormLi = $('<li>').append(newForm);        
+    $newLinkLi.before($newFormLi);
+    $("label").remove();
+}
+
+    
+</script>
+{% endblock %}    
+

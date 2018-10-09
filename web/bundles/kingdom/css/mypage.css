@@ -1,0 +1,311 @@
+#userImg{
+    width : 130px;
+    height : 130px;    
+    float:left;
+    margin-right : 30px;
+}
+
+#myData{
+    height : 130px;
+    display : table-cell;
+    vertical-align: middle;
+}
+.name{
+    font-size: 18px;
+    line-height : 32px;
+}
+
+.right{
+    position: absolute;
+    /*left: 690px;*/
+    left: 85%;
+    font-size: 14px;
+    text-align: right;
+    /*padding-top: 18px;*/    
+}
+
+.changeData{
+    font-size : 14px;
+    line-height : 28px;
+}
+
+.adrText{
+    color : #ccc;
+    font-size : 16px;
+    float: left;
+    margin-right: 10px;    
+    margin-left : 15px;
+}
+
+.marginTop{
+    margin-top: 5px;
+}
+
+.mainAdr{
+    color : #252525;
+}
+
+.adrNum{
+    width : 60px;
+    margin-top: 5px;
+}
+
+#addForm{
+    border : red 1px dotted;
+    display: none;
+}
+
+.removeAddress{
+    float: left;
+    width : 14px;
+    height : 14px;
+    position: relative;
+    top: 4px;
+}
+
+.addressBox{
+    height : 35px;
+}
+
+.adrName{
+    width : 108px;
+}
+
+.qnaBox{
+    width : 100%;
+}
+.qnaTr{    
+    font-size : 16px;    
+    height : 26px;
+}
+
+.qnaDate{
+    width : 15%;
+}
+
+.qnaSubject{
+    width : 70%;
+}
+
+.qnaStatus{
+    width : 15%;
+    text-align : right;
+}
+
+#addQna{
+    z-index : 101;    
+    top : -260px;
+}
+
+
+#qna_subject{
+    font-size : 18px;
+    width: 342px;    
+    border : none;        
+}
+
+#qna_context{
+    width: 416px;   
+    height: 180px;
+    font-size : 18px;
+    border : none;        
+}
+
+#fileForm{
+    height : 80px;
+    overflow-y : overlay;
+}
+.qnaThumb{
+    width : 200px;
+    height : 200px;
+}
+
+#readDate{
+    margin-bottom : 8px;    
+}
+
+#readTitle{
+    margin-bottom : 30px;    
+}
+
+#readContent{
+    height : 200px;
+    overflow-y: overlay;
+}
+
+#cartBoard{
+    min-width : 976px;
+    height : 42px;
+    padding-right: 22px;
+    text-align: right;
+    background-color : #252525;
+    color : white;    
+    vertical-align: middle;
+    display: table-cell;    
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.cartTable{
+    width : 100%;    
+    font-size : 14px; 
+    text-align : center;    
+    border-spacing: 0px;
+    
+}
+
+.cartnumber{
+    width : 30px;
+}
+
+.cartDetail{
+    text-align : left;    
+}
+
+#cartBtnSet{
+    margin : 60px 0px;
+    text-align: center;   
+    z-index : 2;
+}
+
+.cartBtn{
+    width : 152px;
+    height : 42px;
+    margin : 12px;
+    background-size : cover;
+    background-color : white;
+    border : none;
+}
+
+.cartTh{
+    border-bottom: gray 1px solid;        
+    height: 50px;
+}
+
+.orderViewBtn{
+    width: 38px;
+    height: 24px;
+    text-align: center;
+    display : table-cell;
+    vertical-align: middle;
+    background-color : black;
+    color : white;
+    border: none;
+    font-family: 'Nanum Gothic', sans-serif;     
+}
+
+.orderTable{
+    width : 100%;    
+    font-size : 14px;     
+    vertical-align: top;
+    text-align: left;
+    line-height : 30px;
+    border-spacing: 0px;
+}
+
+.backBtn{
+    width : 100%;
+    height : 34px;
+    text-align : center;
+    margin: 30px 0px;    
+    position: relative;
+}
+
+
+.orderTh{
+    border-bottom: gray 1px solid;    
+    vertical-align: top;
+    text-align: left;
+}
+
+
+#pc1{
+    width : 120px;
+}
+
+#pc2{
+    width : 120px;    
+}
+
+#server{
+    width : 200px;
+}
+
+.phoneInput{
+    width : 250px;
+}
+#addrStr{
+    width : 250px;
+}
+
+#addrStr2{
+    width : 234px;
+}
+
+#addrDetail{
+    width : 500px;
+    height : 100px;    
+}
+
+.openPost{
+    background-color : black;
+    color : white;
+    border : none;
+    width :100px;
+    height : 28px;
+    font-size : 13px;
+    position: relative;
+    top: -1px;
+    font-family: 'Nanum Gothic', sans-serif;   
+}
+
+#orderAttr{
+    position: relative;
+    color : red;
+    left : -100px;
+}
+
+
+#confirmBtn{
+    width : 180px;
+    height : 50px;
+    background-size : cover;
+    display: inline-block;
+}
+
+#cancelBtn{
+    width : 180px;
+    height : 50px;
+    background-size : cover;
+    display: inline-block;
+}
+
+
+.payline{
+    text-align: center;
+    width : 200px;
+}
+
+.topSizing {
+    position: relative;
+    top: -19px;
+}
+
+#topResize{
+    top : -34px;
+}
+
+.tdmerge{
+    position : relative;
+    left : -30px;    
+}
+
+.padding10{
+    padding: 10px 0px;
+}
+
+#endBox{
+    text-align: center; 
+    width : 820px;
+    margin : 100px;
+}

@@ -1,0 +1,80 @@
+{% extends  'PristoAdminBundle::layout.html.twig' %}
+
+
+{% block contents %}
+Cafe24연동기능<br>
+<br>
+
+주문정보 입력
+<br>
+
+    <form action="" method="post" {{ form_enctype(form) }}>
+        {{ form_widget(form) }}
+        <input type="submit" />
+    </form>
+<br>
+<br>{{dump(app.session.flashBag.get("csv"))}}
+{% if app.session.flashBag.has('csv') %}
+      <span style="display : none;" >{{ app.session.flashBag.get("csv")}}</span>
+             upload Success!
+{% endif %}    
+
+주문번호 생성<br>
+작가ID<input id="authorId" type="number">
+상품ID<input id="num" type="number">
+카테고리
+    <select id="cateSub" class="subCategory" style="background : url({{asset("bundles/kingdom/image/icon/button_drop.png")}}) no-repeat right">
+        <option value="">선택해주세요</option>
+        <option value="101">{{101|category}}</option>
+        <option value="102">{{102|category}}</option>
+        <option value="103">{{103|category}}</option>
+        <option value="201">{{201|category}}</option>
+        <option value="202">{{202|category}}</option>
+        <option value="203">{{203|category}}</option>
+        <option value="204">{{204|category}}</option>
+        <option value="205">{{205|category}}</option>
+        <option value="301">{{301|category}}</option>
+        <option value="302">{{302|category}}</option>
+        <option value="303">{{303|category}}</option>
+        <option value="304">{{304|category}}</option>
+        <option value="401">{{401|category}}</option>
+        <option value="402">{{401|category}}</option>    
+    </select>
+서브카테고리
+    <select id="phoneSub" class="subCategory" style="background : url({{asset("bundles/kingdom/image/icon/button_drop.png")}}) no-repeat right">
+        <option value="">선택해주세요 </option>
+        <option value="1">{{1|phone}} </option>
+        <option value="2">{{2|phone}} </option>
+        <option value="3">{{3|phone}} </option>
+        <option value="4">{{4|phone}} </option>
+        <option value="5">{{5|phone}} </option>
+        <option value="6">{{6|phone}} </option>
+        <option value="7">{{7|phone}} </option>
+        <option value="8">{{8|phone}} </option>
+        <option value="9">{{9|phone}} </option>                            
+    </select>                            
+
+    <button onclick="generateCode();"> 
+        품번코드 생성
+    </button>
+    <br>    
+    주문번호 : <span id="code" style="font-size : 18px;"></span>
+    <br><br><br>
+<script>
+    
+function generateCode(){
+    var author = $("#authorId").val();
+    var num = $("#num").val();
+    var cate = $("#cateSub").val();
+    var phone = $("#phoneSub").val();
+    
+    var code = sprintf("%03d", author)+sprintf("%03d", num)+cate+phone; 
+    
+    $("#code").empty().text(code);
+}
+
+</script>
+
+<script src="{{asset("bundles/kingdom/js/sprintf.js")}}"></script>
+
+{% endblock %}

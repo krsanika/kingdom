@@ -1,0 +1,8 @@
+parameters:
+#    pristo_admin.example.class: Pristo\AdminBundle\Example
+
+services:
+
+#    pristo_admin.example:
+#        class: %pristo_admin.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

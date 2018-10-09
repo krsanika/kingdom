@@ -1,0 +1,206 @@
+{% extends 'KingdomFrontBundle::layout.html.twig' %}
+
+{% block stylesheets %}	
+    {{ parent()}}
+    <link rel="stylesheet" href="{{asset("bundles/Kingdom/css/mypage.css")}}">    
+{% endblock %}
+
+{% block contents %}    
+<style>
+#deleteBtn{
+    background-image : url({{asset("bundles/Kingdom/image/icon/cart_delete.png")}});
+}    
+#deleteBtn:hover{
+    background-image : url({{asset("bundles/Kingdom/image/icon/cart_delete_overall.png")}});
+}
+#orderBtn{
+    background-image : url({{asset("bundles/Kingdom/image/icon/cart_order.png")}});    
+}
+#orderBtn:hover{
+    background-image : url({{asset("bundles/Kingdom/image/icon/cart_order_overall.png")}});
+}
+#shopBtn{
+    background-image : url({{asset("bundles/Kingdom/image/icon/cart_shopping.png")}})    
+}
+#shopBtn:hover{
+    background-image : url({{asset("bundles/Kingdom/image/icon/cart_shopping_overall.png")}});
+}
+</style>
+    
+<table class="topSizing"><tr>
+    <td>
+        {% include "KingdomFrontBundle:Mypage:_submenu.html.twig" %}
+    </td>
+    <td>
+<div class="mainContent">
+    <div class="myTitle" style="position : relative; top : 30px; border-bottom: none;">카트</div>
+    <div id="cartBoard">
+        총 적립금 : <span id="totalPoint">0</span>원 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        총 구매금액 : <span id="totalPay">0</span>원
+    </div>
+    <table class="cartTable">
+        <tr height = 57>
+            <th class="cartTh">선택</div></th>
+            <th class="cartTh"></div></th>
+            <th class="cartTh"><span class="tdmerge" style="left : -80px">상품정보</span></th>
+            <th class="cartTh">적립금</th>
+            <th class="cartTh">판매가격</th>
+            <th class="cartTh">수량</th>
+            <th class="cartTh">합계</th>
+            <th class="cartTh">배송비</th>
+        </tr>        
+        {%for cart in carts %}
+        <tr height = 100>
+            <td class="cartTh">
+                <input id="check{{cart.id}}" class="check" type="checkbox" alt="{{cart.id}}" onclick="drawTotalPoint({{cart.itemId.category|price}}, {{cart.id}})">
+                <label class="checklabel" for="check{{cart.id}}"></label>
+            </td>
+            <td class="cartTh">
+                {% set imgPath = "bundles/Kingdom/image/items/"~cart.itemId.productId.authorid.id|sprintf('%05d')~"/"~cart.itemId.productId.num~"/"~cart.itemId.category~"/thumb.jpg" %}
+                <img src="{{asset(imgPath)}}" width ="80px">
+            </td>
+            <td class="cartDetail cartTh">
+                <span class="size14">{{cart.itemId.productId.name}}({{cart.itemId.category|category}})</span><br>
+                {% if cart.itemId.category == 201 or cart.itemId.category ==203 %}
+                    <span class="cartOption gray">{{cart.subcate|phone}}</span>
+                {%elseif cart.itemid.category == 202 or cart.itemId.category == 204 %}
+                    <span class="cartOption gray">{{cart.subcate|tablet}}</span>                        
+                {% endif %}                
+            </td>
+            <td class="cartTh">
+                {{(cart.itemId.category|price/5)|number_format()}}원
+            </td>
+            <td class="cartTh">
+                {{cart.itemId.category|price|number_format()}}원
+            </td>
+            <td class="cartTh">
+                <input id="count{{cart.id}}" class="cartnumber" type="number" value="{{cart.count}}">개
+            </td>
+            <td class="cartTh">
+                {{(cart.itemId.category|price*(cart.count)) |number_format()}}원
+            </td>
+            <td class="cartTh">
+                {% if cart.count*25000 < 7000 %}
+                  {{(5000)|number_format()}}원
+                {% else %}
+                    0원
+                {% endif %}
+            </td>
+        </tr>        
+        {% endfor %}
+    </table>
+    <div id ="cartBtnSet">
+        <button id="deleteBtn" class=cartBtn onclick="deleteCart();"></button>
+        <button id="orderBtn" class=cartBtn onclick="orderCart()"></button>
+        <button id="shopBtn" class=cartBtn  onclick="location.href='{{url("product_index")}}'"></button>
+    </div>
+</div>
+    
+    </td>
+</tr></table>
+    
+    
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}    
+<script src="{{asset("bundles/Kingdom/js/mypage.js")}}"></script>    
+<script>
+var action = "{{getActionName()}}";
+var delCartUrl = "{{url("mypage_delCart")}}";
+var buyInputUrl = "{{url("mypage_buyInput")}}";
+var nowDelete = false;
+var point = null;
+var pay = null;
+var ids = null;
+
+$(function(){
+    $(".subMenu").height($(".mainContent").height());
+    if(action === "index"){
+        $("#myInfo").css({color : "#343434"});
+    }else if(action ==="cart"){
+        $("#myCart").css({color : "#343434"});
+    }else if(action ==="payment"){
+        $("#myPay").css({color : "#343434"});
+    }
+    ids = [];
+    pay = 0;
+    point = 0;
+    $('input:checkbox:checked').prop("checked", false);
+//    var tablewidth = $(window).width() - 360;
+//    $("#cartBoard").css({width : tablewidth+"px"});
+//    $(".cartTable").css({width : tablewidth+"px"});    
+});
+
+
+function orderCart(){
+    
+    if(ids.length == 0){
+        alert("상품을 선택해 주세요.");
+        return 0;
+    }
+    var str = "";
+    for (var i=0 ; i < ids.length; i++){        
+        var count = $("#count"+ids[i]).val();
+        str += "strs["+ids[i]+"]="+count+"&";
+    }
+    location.href=buyInputUrl+"?"+str;
+}
+
+function deleteCart(){    
+    if(!nowDelete){
+        nowDelete = true;
+
+        var $checked  = $(".check:checked");
+        var ids = [];
+        for(var i = 0; i < $checked.length; i++){
+            var id = $($checked[i]).attr("alt");
+            ids[i] = id;
+        }
+
+        if(ids.length == 0){
+            nowDelete = false;
+            alert("삭제할 카트정보가 없습니다.");
+            return 0;
+        }
+        
+        $.ajax({
+            type : "get",
+            url : delCartUrl,
+            data : {ids : ids},
+            dataType : "JSON",
+        }).success(function(result){
+            alert(result.msg);
+            location.reload();
+        });
+    }else{
+        alert("카트를 삭제중입니다.");
+    }
+};
+
+function drawTotalPoint(price, cartId){
+    
+    var isChecked = $("#check"+cartId+":checked").val();
+    console.log(isChecked);
+    if(isChecked === "on"){
+     point += parseInt(price)*0.2;
+     pay += parseInt(price);
+     ids.push(cartId);
+    }else{
+     point -= parseInt(price)*0.2;
+     pay -= parseInt(price);
+     var index = ids.indexOf(cartId);
+        if (index > -1) {
+            ids.splice(index, 1);
+        }
+    }
+     $("#totalPoint").empty().text(point);
+     $("#totalPay").empty().text(pay);            
+     console.log(ids);
+}
+
+</script>
+{% endblock %}
+
+{# empty Twig template #}

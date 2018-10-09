@@ -1,0 +1,103 @@
+<div id="loginScreen" class="full"></div>
+
+<div id="login" class="pop">
+    <div class="loginImg" style="background-image : url({{asset("bundles/Kingdom/image/login/box_login.png")}})"></div>
+    <div class="loginInfo">
+        <div class="decoText">PICker에서 아티스트의 감성이 담긴 제품을 감상해보세요.<br>당신의 안목이 갤러리가 되는 세상, PICker</div>
+        <div id="buttonSet">
+            <div class="loginLiner" onclick="location.href='{{facebookUrl}}';">
+                <img  class="loginIcon" src="{{asset("bundles/Kingdom/image/login/icon_facebook.png")}}">
+                <div class="loginText" style="color:gray">페이스북으로 <span style="color:red">1초</span>만에 시작하기</div>
+            </div>
+            <div class="spacer"></div>
+            <div class="loginLiner" onclick="naverApi.naverLogin();">                
+                <img  class="loginIcon" src="{{asset("bundles/Kingdom/image/login/icon_naver.png")}}">
+                <div class="loginText" style="color:gray">네이버로 <span style="color:red">1초</span>만에 시작하기</div>
+            </div>
+            <div class="spacer"></div>
+            <div class="loginLiner" onclick="Login.switch( 'login', 'email')">
+                <img  class="loginIcon" src="{{asset("bundles/Kingdom/image/login/icon_mail.png")}}">
+                <div class="loginText" style="color:gray">메일로 <span style="color:red">10초</span>만에 시작하기</div>
+            </div>
+        </div>
+        <div id="forgotText" onclick="Login.switch( 'login', 'forgot')">비밀번호를 잊으셨나요?</div>
+    </div>
+    <div class="exitBtn" onclick="Login.popDown('login');">
+        <img src="{{asset("bundles/Kingdom/image/icon/global_close.png")}}">
+    </div>
+</div>
+
+<div id="forgot" class="pop">
+    <div class="loginImg" style="background-image : url({{asset("bundles/Kingdom/image/login/box_forgot.png")}})"></div>
+    <div class="loginInfo">
+        <form id="forgotForm" action='{{url("user_sendpass")}}' method='post'>         
+             <input type="email" id="emailInput" name="username" class="noneInput" required value="메일주소를 입력해주세요" onfocus="this.value='';" /><br>
+        </form>
+        <div id="forgotAjax" class="ajaxGet  red"></div>
+    </div>
+    <div id="forgotSubmit" class="submitBtn">
+        <span onclick="Login.sendForgot();">발송하기</span>
+    </div>         
+    <div class="backBtn" onclick="Login.switch( 'forgot', 'login' );">
+        <img src="{{asset("bundles/Kingdom/image/icon/global_back.png")}}">
+    </div>
+    <div class="exitBtn" onclick="Login.popDown('forgot');">
+        <img src="{{asset("bundles/Kingdom/image/icon/global_close.png")}}">
+    </div>
+</div>
+
+<div id="newone" class="pop">
+    <div class="loginImg" style="background-image : url({{asset("bundles/Kingdom/image/login/box_login.png")}})"></div>
+    <div class="loginInfo">
+        <form id="newoneForm" action='{{url("login_check")}}' method='post'>
+             <input id="newUsername" type="" name="username" class="noneInput" required value="메일주소를 입력하세요." onfocus="this.value=''" /><br>
+            <div id="newpassinfo" class="emailLabel">비밀번호를 입력하세요.</div>
+             <input id="newPass" type="password" name="password" class="noneInput" required onfocus="$('#newpassinfo').css({opacity : 0});"/><br>
+            <div id="newrepassinfo" class="emailLabel">한번 더 입력하세요.</div>
+             <input id="newRepass" type="password" name="repassword" class="noneInput" required onfocus="$('#newrepassinfo').css({opacity : 0});"/><br>
+        </form>
+        <div id="newoneAjax" class="ajaxGet  red"></div>
+    </div>
+    <div id="newoneSubmit" class="submitBtn">
+        <span onclick="Login.sendNew();">가입하기</span>
+    </div>             
+    <div class="backBtn" onclick="Login.switch( 'newone', 'email' );">
+        <img src="{{asset("bundles/Kingdom/image/icon/global_back.png")}}">
+    </div>
+    <div class="exitBtn" onclick="Login.popDown('newone');">
+        <img src="{{asset("bundles/Kingdom/image/icon/global_close.png")}}">
+    </div>
+</div>
+
+<div id="email" class="pop">
+    <div class="loginImg" style="background-image : url({{asset("bundles/Kingdom/image/login/box_login.png")}})"></div>
+    <div class="loginInfo">
+        <form id="emailForm" action='{{url("login")}}' method='post'>
+             <input id="username" type="email" name="username" class="noneInput" required value="메일주소를 입력하세요." onfocus="this.value =''; "/><br>
+             <div id="loginpassword" class="emailLabel">비밀번호를 입력하세요.</div>
+             <input id="password" type="password" name="password" class="noneInput" required onfocus="$('#loginpassword').css({opacity : 0});" /><br>
+             <input type="hidden" name="_target_path" value="/product" />
+        </form>
+        <div id="goNewone" onclick="Login.switch('email', 'newone')"> 새로 가입합니다.</div>
+        <div id="emailAjax" class="ajaxGet  red"></div>
+    </div>
+    <div id="loginSubmit" class="submitBtn">
+        <span onclick="$('#emailForm').submit();">로그인</span>        
+    </div>         
+             
+    <div class="backBtn" onclick="Login.switch( 'email', 'login' );">
+        <img src="{{asset("bundles/Kingdom/image/icon/global_back.png")}}">
+    </div>
+    <div class="exitBtn" onclick="Login.popDown('email');">
+        <img src="{{asset("bundles/Kingdom/image/icon/global_close.png")}}">
+    </div>
+</div>
+    
+<script>
+var naverState ="{{naverState}}";
+var naverAppId ="{{naverAppId}}";         
+var forgotUrl ="{{url("user_sendpass")}}";
+var newUrl = "{{url("user_new")}}";
+var error = "{{error}}";
+</script>
+<script type="text/javascript" src="{{asset("bundles/Kingdom/js/naverApi.js")}}"></script>

@@ -1,0 +1,41 @@
+security:
+    encoders:        
+        Pristo\FrontBundle\Entity\User: 
+            #plaintext
+            algorithm: sha256
+            encode_as_base64: false
+            iterations: 1
+            
+    role_hierarchy:
+        ROLE_ADMIN:  [ROLE_AUTHOR, ROLE_USER, ROLE_ADMIN]
+        ROLE_AUTHOR : ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+    providers:
+        users:
+            entity: { class: Pristo\FrontBundle\Entity\User, property: username }
+
+    firewalls:
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+            
+        pristo_front:
+            pattern: ^/
+            anonymous: ~
+            form_login:
+                login_path: /
+                check_path: /login_check
+            logout:
+                path: /logout
+                target: /
+
+    access_control:
+        - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/user$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/product$, roles: ROLE_USER}
+        - { path: ^/mypage$, roles: ROLE_USER}
+        - { path: ^/admin$, roles: ROLE_ADMIN }
+        - { path: ^/_wdt, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/_profiler, role: IS_AUTHENTICATED_ANONYMOUSLY }

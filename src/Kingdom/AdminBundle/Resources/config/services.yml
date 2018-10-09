@@ -1,0 +1,8 @@
+parameters:
+#    Kingdom_admin.example.class: Kingdom\AdminBundle\Example
+
+services:
+
+#    Kingdom_admin.example:
+#        class: %Kingdom_admin.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

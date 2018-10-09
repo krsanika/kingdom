@@ -1,0 +1,16 @@
+<div class="clear-both"></div>
+<div id="footer">         
+	<span></span>       
+        {% if null != app.user %}
+
+        {% if is_granted("ROLE_ADMIN") %}         
+            <a href="{{url("adminTop_index")}}"><span>Administer</span></a>
+        {% endif %}
+        {% endif %}
+	<a href=""><span>プライバシーポリシー</span></a>            
+	<div id="copyright">
+		<span><b>Copyright(C) Generis JAPAN Co.Llc.</b></span>
+	</div>
+        
+</div>
+

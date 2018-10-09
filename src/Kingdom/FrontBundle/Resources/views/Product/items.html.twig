@@ -1,0 +1,28 @@
+
+
+{# empty Twig template #}
+
+
+<div id="itemList">
+    {%for product in products %}                
+    <div id="product{{product.id}}" class="itemBox">
+        {% for category, item in product.items %}                        
+            {% if loop.index <= product.frame %}
+                <a href="{{url("product_detail", {id : item.id})}}">
+                    <div {#id="item{{item.id}}"#} class="thumbBox" style="background-image : url({{thumbFile(product.authorId, product.num, category)}})"></div>
+                </a>
+            {% endif %}
+        {% endfor %}
+        <div class="strbox">
+            <span class="strboxName">{{product.name}}</span><br>
+            <span class="strboxAuthorName">{{product.nick}}</span>
+        </div>
+    </div>
+    
+    {% endfor %}
+    <div class="clear-both"></div>
+</div>
+    
+<div id="indicator">
+    <img src="{{asset("bundles/Kingdom/image/icon/indicator.gif")}}" width =50>
+</div>

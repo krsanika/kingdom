@@ -1,0 +1,166 @@
+{% extends 'KingdomFrontBundle::layout.html.twig' %}
+
+{% block stylesheets %}	
+    {{ parent()}}
+    <link rel="stylesheet" href="{{asset("bundles/Kingdom/css/mypage.css")}}">    
+{% endblock %}
+
+{% block contents %}    
+<style>
+#confirmBtn{
+    background-image : url({{asset("bundles/Kingdom/image/icon/cart_order.png")}});    
+}
+#confirmBtn:hover{
+    background-image : url({{asset("bundles/Kingdom/image/icon/cart_order_overall.png")}});
+}
+
+#cancelBtn{
+    background-image : url({{asset("bundles/Kingdom/image/icon/button_back.png")}});    
+}
+#cancelBtn:hover{
+    background-image : url({{asset("bundles/Kingdom/image/icon/button_back.png")}});
+}
+
+</style>
+    
+<table><tr>
+    <td>
+        {% include "KingdomFrontBundle:Mypage:_submenu.html.twig" %}
+    </td>
+    <td>
+<div class="mainContent">
+    <div class="myTitle" style="margin-bottom : 0px;"> 주문하기
+        <span class="size18"> 주문할 상품들입니다.</span>
+    </div>    
+    <table class="cartTable">
+        <tr>
+            <th class="orderTh center"></th>
+            <th class="orderTh center">상품정보</th>
+            <th class="orderTh center">적립금</th>
+            <th class="orderTh center">주문금액</th>
+            <th class="orderTh center">수량</th>
+            <th class="orderTh center">합계</th>
+            <th class="orderTh center">배송비</th>            
+        </tr>
+        {%for cart in carts %}
+        <tr>
+            <td>
+                    {% set imgPath = "bundles/Kingdom/image/items/"~cart.itemId.productId.authorid.id|sprintf('%05d')~"/"~cart.itemId.productId.num~"/"~cart.itemId.category~"/thumb.jpg" %}
+                    <img src="{{asset(imgPath)}}" width ="100px"><br>
+            </td>
+            <td class="cartDetail" alt="{{cart.id}}">
+                    <span class="size18">{{cart.itemId.productId.name}}({{cart.itemId.category|category}})</span><br>
+                    {% if cart.itemId.category == 201 or cart.itemId.category ==203 %}
+                        <span class="cartOption gray">{{cart.subcate|phone}}</span>
+                    {%elseif cart.itemid.category == 202 or cart.itemId.category == 204 %}
+                        <span class="cartOption gray">{{cart.subcate|tablet}}</span>                        
+                    {% endif %}
+            </td>
+            <td>{{(cart.itemId.category|price)*0.2}}원</td>
+            <td style="text-align: center">{{(cart.itemId.category|price)|number_format()}}원</td>
+            <td>{{cart.count}}개 </td>
+            <td>
+                {{((cart.itemId.category|price)*cart.count)|number_format()}}원
+            </td>
+            <td>
+                {% if (cart.itemId.category|price)*cart.count > 7000 %}
+                    {{0|number_format()}}원
+                {%else%}
+                    {{7000|number_format()}}원
+                {% endif %}                
+            </td>
+        </tr>       
+        {% endfor %}
+    </table>
+    <div class="myTitle" style="margin-bottom : 0px;">주문상세내역</div>
+    <table class="orderTable">
+        <tr>
+            <th class="orderTh">주문자정보 </th>
+            <th class="orderTh">주문하는분<br>주소<br><br>연락처<br>이메일</th>
+            <td class="orderTh">
+                <span id="usernick">{{app.user.nick}}</span><br>
+                <span id="usercodes">{{app.user.addressId.codes}}</span><br>
+                <span id="usertext">{{app.user.addressId.text}}</span><br>
+                <span id="userphone">{{app.user.addressId.phone}}</span><br>
+                {{app.user.username}}<br>
+            </td>
+        </tr>
+        <tr>
+            <th class="orderTh">배송정보</th>
+            <th class="orderTh">받는 분<br>주소<br><br>연락처<br>배송유의사항</th>
+            <td class="orderTh">
+                <form id="adrForm" method="post">
+                    <input id="server" class="size18" name="name" type="text" maxlength="16">
+                    <input id="isSame" class="size18" name="isSame" type="radio" onclick="Buy.sameAdr()">주문자정보와 같습니다.<br>
+                    <input id="pc1" name="pc1" type="text" class="size18"> - <input id="pc2" name="pc2" type="text" class="size18">
+                    <input class="openPost" type="button" onclick="Address.openDaumPostcode()" value="우편번호 찾기"><br>
+{#                    <div id="searchWrap">
+                        <img id="btnFoldWrap" src="//i1.daumcdn.net/localimg/localimages/07/postcode/320/close.png" onclick="Address.closeDaumPostcode()" alt="접기 버튼">
+                    </div>#}
+                    <input id="addrStr" class="size18" name="addrStr" type="text" >　<input id="addrStr2" class="size18" name="addrStr2" type="text" ><br>
+                    <input id="phone1" class="size18 phoneInput" type="text" maxlength="4">-<input id="phone2" class="size18 phoneInput" type="text" maxlength="4">-<input id="phone3" class="size18 phoneInput" type="text" maxlength="4"><br>
+                    <textarea id="addrDetail" class="size18" name="addrDetail" ></textarea><br>
+                </form>        
+                <div id="adrConfirm"></div>
+            </td>
+        </tr>
+        <tr>
+            <th class="orderTh">결제금액</th>
+            <th class="orderTh">상품합게금액<br>배송비<br>할인<br><br>결제금액</th>
+            <td class="orderTh">
+                <div id="money">
+                    {{total|number_format()}}원<br>
+                    {{charge|number_format()}}원<br>
+                    <span id="disNotice"> 할인기간이 아닙니다.</span><br>
+                    <input id="discount" class="size18  phoneInput" type=number min=0 alt="{{app.user.point}}" onchange="Buy.displayCount()"><span id="money3line">원의 적립금을 사용합니다.(보유 적립금 : {{app.user.point|number_format()}}원)</span><br>
+                    <span id="moneyResult" class="size18" alt="{{total+charge}}">{{total+charge|number_format()}}</span>원
+                </div>
+                <div id="moneyConfirm"></div>
+            </td>
+            
+        </tr>
+        <tr>
+            <th class="orderTh">결제수단</th>
+            <th class="orderTh">일반결제<br>에스크로결제</th>
+            <td class="orderTh">
+                <div id="paymentMethod">
+                    <input id="pay1" type="radio" name="pay" value="1"><span id="paystr1" class=payline>신용카드</span>
+                    <input id="pay2"  type="radio" name="pay" value="2"><span id="paystr2" class=payline>무통장입금</span>
+                    <input id="pay3" type="radio" name="pay" value="3"><span id="paystr3" class=payline>계좌이체</span>
+                    <input id="pay4"  type="radio" name="pay" value="4"><span id="paystr4" class=payline>가상계좌</span>
+                    <input id="pay5"  type="radio" name="pay" value="5"><span id="paystr5" class=payline>휴대폰</span><br>
+                    <input id="pay6"  type="radio" name="pay" value="6"><span id="paystr6" class=payline>가상계좌</span><br>
+                    <span id="orderAttr">*무통장 입금은, 입금 확인 후 주문제작 공정에 들어갑니다.</span>
+                </div>
+                <div id="payConfirm"></div>
+            </td>
+            
+        </tr>
+        
+    </table>
+    <div class="backBtn">        
+        <div id="confirmBtn" onclick ="Buy.doConfirm()"></div>        
+    </div>                    
+</div>            
+        
+    </td>
+</tr></table>
+    
+    
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}    
+<script src="{{asset("bundles/Kingdom/js/mypage.js")}}"></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.js"></script>
+<script src="{{asset("bundles/Kingdom/js/address.js")}}"></script>
+<script src="{{asset("bundles/Kingdom/js/buy.js")}}"></script>
+<script>    
+var action = "{{getActionName()}}";
+var processUrl = "{{url("mypage_buyProcess")}}";
+var endUrl = "{{url("mypage_buyEnd")}}";
+</script>
+{% endblock %}
+
+{# empty Twig template #}

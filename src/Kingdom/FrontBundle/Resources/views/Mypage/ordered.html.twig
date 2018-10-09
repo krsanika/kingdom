@@ -1,0 +1,149 @@
+{% extends 'KingdomFrontBundle::layout.html.twig' %}
+
+{% block stylesheets %}	
+    {{ parent()}}
+    <link rel="stylesheet" href="{{asset("bundles/Kingdom/css/mypage.css")}}">    
+{% endblock %}
+
+{% block contents %}    
+<table class="topSizing" id="topResize"><tr>
+    <td>
+        {% include "KingdomFrontBundle:Mypage:_submenu.html.twig" %}
+    </td>
+    <td>
+<div class="mainContent">
+    <div class="myTitle" style="margin-bottom : 0px;">주문내역상세보기
+        <span class="size14" style="font-weight: normal;"> 입금이 확인되면 취소할 수 없으며, 상품의 주문제작에 들어갑니다.</span>
+    </div>
+    <table class="cartTable">
+        <tr height =57>
+            <th class="cartTh">번호</th>
+            <th class="cartTh" width =100></th>
+            <th class="cartTh"><span class="tdmerge">상품정보</span></th>
+            <th class="cartTh">주문금액</th>
+            <th class="cartTh">수량</th>
+            <th class="cartTh">상태</th>
+            <th class="cartTh">배송추적</th>
+        </tr>
+        {%for cart in order.carts %}
+        <tr height = 100>
+            <td class="cartTh">
+                {{loop.index}}
+            </td>
+            <td class="cartTh">
+                    {% set imgPath = "bundles/Kingdom/image/items/"~cart.itemId.productId.authorid.id|sprintf('%05d')~"/"~cart.itemId.productId.num~"/"~cart.itemId.category~"/thumb.jpg" %}
+                    <img src="{{asset(imgPath)}}" width ="80px"><br>
+            </td>
+            <td class="cartDetail cartTh ">
+                    <span class="size14 bold">{{cart.itemId.productId.name}}({{cart.itemId.category|category}})</span><br>
+                    {% if cart.itemId.category == 201 or cart.itemId.category ==203 %}
+                        <span class="cartOption gray">{{cart.subcate|phone}}</span>
+                    {%elseif cart.itemid.category == 202 or cart.itemId.category == 204 %}
+                        <span class="cartOption gray">{{cart.subcate|tablet}}</span>                        
+                    {% endif %}
+            </td>
+            <td class="cartTh">{{((cart.itemId.category|price)*cart.count)|number_format()}}원</td>
+            <td class="cartTh">{{cart.count}}개 </td>
+            <td class="cartTh">{{order.status|payStatus}}</td>
+            <td class="cartTh">
+                <a href="{{order.paymentId}}"><button class="orderViewBtn">추적</button> </a>
+            </td>
+        </tr>       
+        {% endfor %}
+    </table>
+    <div class="myTitle" style="margin-bottom : 0px;">주문정보확인        </div>
+    <table  class="orderTable">
+        <tr>
+            <th class="cartTh"> 주문자정보 </th>
+            <th class="cartTh"> 주문하시는 분 <br>연락처<br>이메일</th>
+            <td class="cartTh">
+                <div class="padding10">
+                {{app.user.nick}}<br>
+                {{app.user.addressId.phone}}<br>
+                {{app.user.username}}<br>                
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th class="cartTh"> 배송정보 </th>
+            <th class="cartTh"> 받으시는 분 <br>연락처<br>우편번호<br>주소</th>
+            <td class="cartTh">
+                <div class="padding10">
+                {% if order.name == null %}
+                    {{app.user.nick}}
+                {% else %}
+                    {{order.name}}
+                {% endif %}<br>
+                {{order.addressId.phone}}<br>
+                {{order.addressId.codes}}<br>
+                {{order.addressId.text}}<br>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th class="cartTh"> 결제금액 </th>
+            <th class="cartTh"> 상품합계금액 <br>배송비<br>할인 <br>결제금액</th>
+            <td class="cartTh">
+                <div class="padding10">                
+                {{order.price}}<br>
+                {{order.charge}}<br>
+                {{order.discount}}<br>
+                {{order.pay}}<br>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <th class="cartTh"> 결제수단 </th>
+            {% if order.channel == 1 %}
+            <th class="cartTh"> 입금은행 <br>입금계좌<br>예금주명<br>입금자명</th>
+            <td class="cartTh">
+                <div class="padding10">                
+                    시티은행<br>890-121914-00-000<br>(주)제네리스<br>{% if order.name == null %}{{app.user.nick}}{% else %}{{order.name}}{% endif %}
+                </div>
+            </td>            
+            {% elseif order.channel == 2 %}
+            <th class="cartTh"> 신용카드</th>
+            <td class="cartTh"> 
+                <div class="padding10">                                
+                    (주)제네리스
+                </div>
+            </td>                            
+            {% else %}
+            <th class="cartTh"> 휴대폰결제</th>
+            <td class="cartTh">
+                <div class="padding10">                                
+                결제됨
+                </div>
+            </td>                            
+            {% endif %}
+        </tr>
+        
+    </table>
+    <div class="backBtn">
+        <a href="{{url("mypage_pay")}}">
+        <img src="{{asset("bundles/Kingdom/image/icon/order_back.png")}}" width="100">
+        </a>
+    </div>                    
+</div>            
+        
+    </td>
+</tr></table>
+    
+    
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}    
+<script src="{{asset("bundles/Kingdom/js/mypage.js")}}"></script>
+<script>
+    var action = "{{getActionName()}}";
+    
+function orderView(id){
+    
+}
+
+</script>
+{% endblock %}
+
+{# empty Twig template #}

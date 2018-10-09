@@ -1,0 +1,48 @@
+{% extends 'KingdomFrontBundle::popup.html.twig' %}
+{# empty Twig template #}
+
+{% block title %} PICker 주소추가{% endblock %}
+
+{% block stylesheets %}	
+    {{ parent()}}
+    <link rel="stylesheet" href="{{asset("bundles/Kingdom/css/mypage.css")}}">
+{% endblock %}
+
+{% block contents %}        
+    {% if app.session.flashBag.has('address') %}
+        <script>
+            {{ app.session.flashBag.get("address")}}
+            window.opener.location.reload(true);
+            self.close();                        
+        </script>
+    {% endif %}
+    
+    <h3> 주소 추가</h3><br>
+    <form id="addForm" method="post" action="{{url("address_add")}}">
+        주소지명<input id="name" name="name" type="text" maxlength="16"><br>
+        우편번호 <input id="pc1" name="pc1" type="text" > - <input id="pc2" name="pc2" type="text" >
+        <input type="button" onclick="Address.expandDaumPostcode()" value="우편번호 찾기"><br>
+        <div id="searchWrap">
+            <img id="btnFoldWrap" src="//i1.daumcdn.net/localimg/localimages/07/postcode/320/close.png" onclick="Address.foldDaumPostcode()" alt="접기 버튼">
+        </div>
+        주소 <input id="addrStr" class="addText" name="addrStr" type="text" ><br>
+        상세주소 <input class="addText" name="addrDetail" type="text" ><br>
+        
+        <input id="isSelected" name="isSelected[]" type="checkbox" >기본 배송처로 사용<br>        
+        <input id="addSubmit" type="submit" value="추가">
+        <input id="userId" type="hidden" name="userId" value="{{app.user.id}}">
+    </form>
+        <br>
+    {# hogeというflashを表示 #}
+    {% for flashMessage in app.session.flashBag.get('error') %}
+         {{ flashMessage }}
+    {% endfor %}
+    
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}    
+<script src="http://dmaps.daum.net/map_js_init/postcode.js"></script>
+<script src="{{asset("bundles/Kingdom/js/address.js")}}"></script>
+{% endblock %}    

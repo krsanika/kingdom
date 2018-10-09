@@ -1,0 +1,411 @@
+body, table, div, p, a, span, h1, h2, h3, h4, input{ 
+    font-family: 'Nanum Gothic', sans-serif;     
+    color : #343434;
+}
+
+li {
+margin-left:0px;
+list-style-type: none;
+}
+
+body{
+    width : 100%;
+    overflow-x: hidden;
+    overflow-y : scroll;
+    margin : 0px;
+}
+.noscroll{
+    position: fixed;
+    overflow-y : no-display;
+}
+
+a{
+    text-decoration: none;
+}
+
+#userImg{
+    width : 40px;
+    height: 40px; 
+    background-size : cover;    
+}
+
+.clear-both{
+    clear : both;
+}
+
+.pop{
+    width : 458px;
+    display: none;
+    height : 594px;
+    background-color : white;
+    z-index : 20;
+    margin-left : 50%;
+    position : fixed;
+    left : -229px;
+    top : 90px;    
+}
+
+.popInfo{
+    padding-top : 70px;
+    text-align: center;    
+}
+
+.btnClose{
+    top:-20px;
+    right: -15px;
+    width: 50px;
+    height: 50px;
+    position : absolute;
+    background-size : cover;
+    z-index : 200;
+}
+
+#flag{
+    width : 50px;
+    height : 50px;    
+    background-size : cover;  
+}
+
+#header{
+    height : 60px;
+    width : 100%;    
+    padding : 17px;
+    box-sizing: border-box;    
+    text-align: center;
+    background-color: #151515;
+    z-index : 100;
+}
+
+/*#headerMenu{
+    width : 100%;
+    display : table-cell;
+    vertical-align: middle;
+    font-size: 18px;
+
+}*/
+
+#logoImg{
+width: 134px;
+height: 26px;
+position: absolute;
+margin-left: 50%;
+top: 17px;
+left: -77px;
+}
+
+/*#menuText{
+    margin : 4px 0px;    
+    float : right;
+}*/
+
+#loginBox {
+    color : white;
+    width : 185px;
+    height : 54px;
+    position : absolute;
+    paddin-top : 18px;
+    right : 35px;
+}
+
+.over950{
+    top : 14px;
+    right : 35px;
+}
+
+.under950{
+    top : 14px;
+    left : 740px;
+}
+
+
+#headerMenu{
+    width : 100%;
+    display : table-cell;
+    vertical-align: middle;
+    font-size: 15px;
+
+}
+
+#menuText{
+    margin : 1px 0px;    
+    float : right;
+    vertical-align: middle;  
+    height: 20px;
+    width: 423.125px;    
+}
+
+.menuStr{
+    margin : 0px 25px;    
+    font-size :16px;
+}
+
+
+#userBox{    
+    height : 40px;
+    position : absolute;
+    right : 30px;
+    top : 10px;
+    font-size : 15px;
+    text-align: center;    
+    line-height : 15px;
+}
+
+
+#userBoxMyImage{
+    width : 30px;
+    height : 30px;
+    margin-top : 5px;
+    margin-right : 8px;
+    float : left;
+    background-size: cover;    
+}
+
+#userBoxText{
+    color : white;
+    position: relative;
+    top : 12px;
+    text-decoration: none;
+}
+
+.pageTitle{
+    margin-left : 35px;
+    margin-top : 15px;
+    margin-bottom : 15px;
+    font-size : 3.0em;
+}
+
+#footer{
+    position : relative;
+    bottom : 5px;
+}
+
+.exitBtn{
+    position : absolute;
+    top : 14px;
+    right : 14px;
+}
+
+
+.popExitBtn{
+    position : absolute;
+    top : 22px;
+    right : 22px;
+}
+.backBtn{
+    position : absolute;
+    top : 14px; 
+    left : 14px;
+}
+
+.noscroll{
+    width : 100%;
+    overflow-y : hidden;
+}
+
+.red{
+    color : #940c0c;
+}
+
+.full{
+    width : 100%;
+    height : 100%;
+    position : fixed;
+    top : 0px;
+    left : 0px;    
+}
+
+.subMenu{
+    min-width : 184px;
+    height : 100%;
+    padding-top : 18px;
+    padding-left : 40px;
+    left : 60px;
+    border-right : #252525 1px solid;
+}
+
+.subContent{
+    font-size : 20px;
+    margin-top : 20px;
+    margin-bottom: 20px;
+    color : #ccc;
+}
+
+.mainContent{    
+    padding-left: 5%;
+    left: 278px;    
+    top: 50px;  
+    min-height: 900px;
+}
+
+.myTitle{
+    font-size : 20px;
+    padding-bottom: 30px;
+    margin-top : 50px;
+    margin-bottom: 10px;
+    border-bottom: #252525 1px solid;
+    font-weight: bold;
+    color : #252525;
+    width: 1000px;
+}
+
+.bold{
+    font-weight : bold;
+}
+
+
+.removeAddress{
+    
+}
+
+.check{
+    float : left;
+}
+
+.addressBox {
+}
+
+/*input[type=radio], */input[type=checkbox] {
+  display: none;
+}
+
+.radiolabel, .checklabel {
+  box-sizing: border-box;
+  -webkit-transition: background-color 0.2s linear;
+  transition: background-color 0.2s linear;
+      position: relative;
+  display: inline-block;
+  margin: 8px 12px 0px 0px;
+  padding: 12px;  
+  vertical-align: middle;
+  cursor: pointer;
+  float : left;
+}
+
+/*.radio:hover, */
+.checklabel:hover {
+}
+/*.radio:hover:after, */
+.checklabel:hover:after {
+}
+
+/*.radio:after, */
+.checklabel:after {
+  -webkit-transition: border-color 0.2s linear;
+  transition: border-color 0.2s linear;
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  display: block;
+  margin-top: -10px;
+    width: 14px;
+    height: 14px;
+    border: 1px solid #222; 
+    content: '';
+}
+/*
+.radio:before {
+  -webkit-transition: opacity 0.2s linear;
+  transition: opacity 0.2s linear;
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  display: block;
+  margin-top: -5px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  content: '';
+  opacity: 0;
+}
+input[type=radio]:checked + .radio:before {
+  opacity: 1;
+}
+*/
+.checklabel:before {
+  -webkit-transition: opacity 0.2s linear;
+  transition: opacity 0.2s linear;
+   top: 50%;
+   left: 19px;
+   display: block;
+   margin-top: -9px;
+   margin-left: 8px;
+   width: 5px;
+   height: 8px;
+  border-right: 1px solid #222;
+  border-bottom: 1px solid #222;
+  content: '';
+  opacity: 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+input[type=checkbox]:checked + .checklabel:before {
+    opacity: 1;
+}
+
+.gray{
+    color : #ccc;
+}
+.blue{
+    color : blue;
+}
+.popTitle{
+    background-color: #666;
+    color : white;
+    padding : 18px 27px;
+    font-size : 22px;
+    
+}
+
+.popContent{
+    padding : 20px;
+    text-align : left;
+}
+
+.grayline{
+    width : 420px;
+    height : 1px;    
+    margin : 17px 0px;
+    border-top : gray 1px solid;
+}
+
+.size18{
+    font-size : 18px;
+}
+
+.size14{
+    font-size : 14px;
+}
+
+.size12{
+    font-size : 12px;
+}
+
+
+.add_file_link{
+    width : 66px;
+    height : 26px;
+    font-size : 11px;
+}
+
+.cmnSubmit{
+    width: 418px;
+    height: 50px;
+    font-size: 22px;
+    text-align: center;
+    padding-top: 2px;
+    background-color: rgb(239, 239, 239);
+    border: none;
+}
+
+input[type=file]{
+/*    width : 66px;
+    height : 26px;*/
+    font-size : 11px;    
+    border: none;
+    color : blue;
+}
+
+.center{
+    text-align: center;
+}

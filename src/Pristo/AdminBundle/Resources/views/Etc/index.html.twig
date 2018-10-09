@@ -1,0 +1,30 @@
+{% extends  'PristoAdminBundle::layout.html.twig' %}
+
+
+{% block contents %}
+기본이미지 설정
+
+<table border="2">
+    <tr>
+        <th>ID</th>
+        <th>종류</th>
+        <th>기본이미지</th>
+        <th>교채</th>
+    </tr>
+{% for def in defImages%}
+<tr>    
+    <td>{{def.category}} </td>
+    <td>{{def.str}}</td>
+    <td>
+        {% for file in def.files %}
+            <img src="{{asset(webPath~def.category~"/"~file)}}" width = 100>
+        {% endfor %}
+    </td>
+    <td>
+        {{form(def.form)}}
+    </td>
+</tr>   
+{% endfor %}
+</table>
+
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'KingdomFrontBundle::layout.html.twig' %}
+{# empty Twig template #}
+
+{% block title %} PICker 회원정보변경{% endblock %}
+
+{% block stylesheets %}	
+    {{ parent()}}
+    <link rel="stylesheet" href="{{asset("bundles/Kingdom/css/mypage.css")}}">
+{% endblock %}
+
+{% block contents %}        
+    {% if app.session.flashBag.has('change') %}
+        <script>
+            {{ app.session.flashBag.get("change")}}
+            window.opener.location.reload(true);
+            self.close();
+        </script>
+    {% endif %}
+    
+    
+    <h3> 회원정보 변경</h3><br>
+{#    {{form(nickForm)}}
+#}    {{form(passForm)}}
+    <br>
+    
+{#    개인이미지 업로드<br>
+    <input type="file">
+#}
+
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}    
+    <script src="{{asset("bundles/Kingdom/js/address.js")}}"></script>
+    <script>
+$(function(){
+    $("#form_password").val("");
+});
+        
+    </script>
+{% endblock %}

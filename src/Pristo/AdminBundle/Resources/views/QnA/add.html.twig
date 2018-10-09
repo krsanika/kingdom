@@ -1,0 +1,87 @@
+{% extends 'PristoFrontBundle::popup.html.twig' %}
+{# empty Twig template #}
+
+{% block title %} PICker 주소추가{% endblock %}
+
+{% block stylesheets %}	
+    {{ parent()}}
+    <link rel="stylesheet" href="{{asset("bundles/kingdom/css/mypage.css")}}">
+{% endblock %}
+
+{% block contents %}        
+    {% if app.session.flashBag.has('qna') %}
+        <script>
+            {{ app.session.flashBag.get("qna")}}
+            window.opener.location.reload(true);
+            self.close();                        
+        </script>
+    {% endif %}
+    <h3> QnA작성하기</h3><br>
+    <br>
+
+{{ form_start(qnaForm) }}
+    {# render the task's only field: description #}
+    제목　　 {{ form_widget(qnaForm.subject) }}<br>    
+    내용 {{ form_widget(qnaForm.context) }}<br>
+    사진업로드    
+    <ul id="fileForm" class="files" data-prototype="{{form_widget(qnaForm.files.vars.prototype)|e}}">
+    {% for qnaFile in qnaForm.files %}
+        <li>{{ form_widget(qnaFile.file) }}</li>
+    {% endfor %}
+    </ul>
+    {% for flashMessage in app.session.flashBag.get('error') %}
+         {{ flashMessage }}
+    {% endfor %}
+{{ form_end(qnaForm) }}
+    
+    
+    
+{% endblock %}
+
+
+{% block javascripts %}
+<script>
+var $collectionHolder;
+
+// setup an "add a file" link
+var $addFileLink = $('<a href="#" class="add_file_link">Add image</a>');
+var $newLinkLi = $('<li>').append($addFileLink);
+
+$(function() {
+    // Get the ul that holds the collection of tags
+    $collectionHolder = $('#fileForm');
+
+    // add the "add a tag" anchor and li to the tags ul
+    $collectionHolder.append($newLinkLi);
+
+    // count the current form inputs we have (e.g. 2), use that as the new
+    // index when inserting a new item (e.g. 2)
+    $collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+    $addFileLink.on('click', function(e) {
+        // prevent the link from creating a "#" on the URL
+        e.preventDefault();
+        // add a new tag form (see next code block)
+        addFileForm($collectionHolder, $newLinkLi);
+    });
+});   
+
+function addFileForm($collectionHolder, $newLinkLi) {
+    // Get the data-prototype explained earlier
+    var prototype = $collectionHolder.data('prototype');
+    
+    // get the new index
+    var index = $collectionHolder.data('index');
+    // Replace '__name__' in the prototype's HTML to
+    // instead be a number based on how many items we have
+    var newForm = prototype.replace(/__name__/g, index);
+    // increase the index with one for the next item
+    $collectionHolder.data('index', index + 1);
+    // Display the form in the page in an li, before the "Add a tag" link li
+    var $newFormLi = $('<li>').append(newForm);        
+    $newLinkLi.before($newFormLi);
+    $("label").remove();
+}
+
+</script>
+{% endblock %}    

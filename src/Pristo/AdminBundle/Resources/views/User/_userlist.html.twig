@@ -1,0 +1,87 @@
+<form id="search" action="#" method ="post">
+    정렬<select name ="order" onChange="Submit()">
+        <option value="nick"> 유저명 </option>
+        <option value="created">가입일</option>
+        <option value="buyed">구매액</option>
+    </select>    
+    <input id="pager" type="hidden" name="page" value="0">
+</form>
+
+<table border="1">
+    <th>
+        <td>ID</td>
+        <td>이름</td>
+        <td>e-mail</td>
+        <td>구매액</td>        
+        <td>QnA횟수</td>        
+        <td>가입채널</td>
+        <td>작가전환</td>
+        <td>가입/탈퇴</td>
+    </th>
+{%for user in users %}
+    <tr
+    {% if user.author != null %}
+        style ="background-color : #FFCCCC;"
+    {% endif %}
+    >
+        <td>
+
+        </td>
+        <td>
+            {{ user.id }}
+        </td>
+        <td>
+            {{ user.nick }}
+        </td>
+        <td>
+            {{ user.username }}
+        </td>
+        <td>
+            {{user.buyed}}
+        </td>
+        <td>
+            {{user.qnaCount}}
+        </td>
+        <td>
+            {% if user.type ==1 %}
+                <img src="{{asset("bundles/kingdom/image/icon/email_small.png")}}" width =30>
+            {% elseif user.type ==2 %}
+                <img src="{{asset("bundles/kingdom/image/icon/facebook_small.png")}}" width =30>
+            {% elseif user.type ==3 %}
+                <img src="{{asset("bundles/kingdom/image/icon/naver/small_green.png")}}" width =30 >
+            {% elseif user.type ==4 %}
+                Dummy
+            {% endif %}
+        </td>
+        <td>            
+            {% if user.author == null %}
+               <a href="{{url("user_addauthor", {"id" : user.id})}}">전환</a>
+            {% endif %}
+        </td>
+        <td>
+            {% if user.isEnabled %}
+               <a href="{{url("user_deactivate", {"id" : user.id})}}">탈퇴</a>
+            {% else %}
+                <a href="{{url("user_activate", {"id" : user.id})}}">가입</a>
+            {% endif %}            
+        </td>
+            
+    </tr>
+    
+{% endfor %}   
+</table>
+{% for i in 0..pager %}            
+    <button onclick="Submit({{i}})">{{i+1}}</button>
+{% endfor %}        
+
+    
+<script>
+    
+    function Submit(page){
+        if(page === null) page = 0;
+        
+        $("#pager").val(page);
+        $("#search").submit();
+    }
+    
+</script>    

@@ -1,0 +1,75 @@
+{% extends  'PristoAdminBundle::layout.html.twig' %}
+
+
+{% block contents %}
+
+<table border="1">
+    <th>
+        <td>ID</td>
+        <td>Assign Date</td>
+        <td>Name</td>
+        <td>e-Mail</td>        
+        <td>Products</td>        
+        <td>on Sale</td>
+        <td>Monthly Pay</td>
+        <td>Total Pay</td>
+        <td>Details</td>        
+    </th>
+{%for author in authors %}
+    <tr>
+        <td></td>
+        <td>
+            {{ author.id }}
+        </td>
+        <td>
+            {{ author.created|date }}
+        </td>
+        <td>
+            {{ author.name}}
+        </td>
+        <td>
+            {{ author.userId.username }}
+        </td>
+        <td>
+            {{author.productCount}}
+        </td>
+        <td>
+            {{author.onSale}}
+        </td>
+        <td>
+            {{author.monthly}}
+        </td>
+        <td>
+            {{author.profit}}
+        </td>    
+        <td>
+            <a href="{{url("author_detail", {"id" : author.id})}}">details</a>
+        </td>    
+        
+    </tr>
+    
+{% endfor %}   
+</table>
+
+<form id="search" action="#" method ="post">
+    <input id="pager" type="hidden" name="page" value="0">
+</form>
+    
+{% for i in 0..pager %}            
+    <button onclick="Submit({{i}})">{{i+1}}</button>
+{% endfor %}        
+
+
+
+
+
+<script>    
+    function Submit(page){
+        if(page === null) page = 0;
+        $("#pager").val(page);
+        $("#search").submit();
+    }
+    
+</script>    
+
+{% endblock %}

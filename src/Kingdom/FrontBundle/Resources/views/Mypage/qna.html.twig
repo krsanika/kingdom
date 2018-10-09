@@ -1,0 +1,64 @@
+
+<div id="addQna" class="pop">
+
+<div class="popTitle"> QnA작성하기</div>
+<div class="popContent">    
+{{ form_start(qnaForm) }}
+    <span class="size18 gray">문의제목 </span>{{ form_widget(qnaForm.subject) }}<br>
+    <div class="grayline"></div>
+    
+    <div class="size18  gray">어떤 문의가 있으신가요? </div>
+    {{ form_widget(qnaForm.context) }}
+    <div class="grayline"></div>    
+    <span class="gray">주문상품 첨부하기  </span>{{ form_widget(qnaForm.orderId) }}<br>
+    <div class="grayline"></div>
+    <span id="addImages gray">이미지 첨부하기</span>
+{#    <input href="#" value="찾아보기" class="add_file_link" type="button" onclick="addFileForm($collectionHolder, $newLinkLi);">#}
+    {% for qnaFile in qnaForm.files %}
+        <li>{{ form_widget(qnaFile.file) }}</li>
+    {% endfor %}
+{#    <ul id="fileForm" class="files" data-prototype="{{form_widget(qnaForm.files.vars.prototype)|e}}">
+    {% for qnaFile in qnaForm.files %}
+        <li>{{ form_widget(qnaFile.file) }}</li>
+    {% endfor %}
+    </ul>
+#}    {% for flashMessage in app.session.flashBag.get('error') %}
+         {{ flashMessage }}
+    {% endfor %}
+{{ form_end(qnaForm) }}
+
+</div>
+
+<div class="popExitBtn" onclick="popDown('addQna');">
+    <img src="{{asset("bundles/Kingdom/image/icon/global_close.png")}}">
+</div>
+    
+    
+</div>
+
+
+
+<div id="readQna" class="pop">
+
+<div class="popTitle"> QnA 보기</div>
+<div class="popContent">    
+    
+    <span id="readDate" class="size12"></span><br>
+    <span id="readTitle" class="size18"></span><br>    
+    <div id="readContent" class="size18 gray">
+        
+    </div>    
+    <div class="grayline"></div>
+    <span class="gray">주문상품 첨부</span>
+    <span id="readOrderId" class="size12 blue"></span><br>            
+    <div class="grayline"></div>
+    <span class="gray">이미지 첨부</span><br>
+    <div id="readImages" class="size12 blue"></div>
+</div>
+
+<div class="popExitBtn" onclick="popDown('readQna');">
+    <img src="{{asset("bundles/Kingdom/image/icon/global_close.png")}}">
+</div>
+    
+    
+</div>

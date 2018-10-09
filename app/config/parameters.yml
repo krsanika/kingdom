@@ -1,0 +1,22 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_driver: pdo_mysql
+    database_host: localhost
+    database_port: 3306
+    database_user: kingdom
+    database_password: whwldhdnpf
+    database_name: kingdom
+    
+    mailer_transport: smtp
+    mailer_host: mail.jokerforge.com
+    mailer_user: no_replay@jokerforge.com
+    mailer_password: whwldhdnpf
+    mailer_encryption : 
+    mailer_authmode : login
+    mailer_port : 25
+    
+    locale: ja
+    secret: bc5597118012490c3553d73fac2cd0b05d9ccb7d
+    debug_toolbar: true
+    debug_redirects: false
+    use_assetic_controller: true

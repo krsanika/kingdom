@@ -1,0 +1,55 @@
+{% extends 'KingdomFrontBundle::layout.html.twig' %}
+
+{% block stylesheets %}	
+    {{ parent()}}
+    <link rel="stylesheet" href="{{asset("bundles/Kingdom/css/mypage.css")}}">    
+{% endblock %}
+
+{% block contents %}    
+<style>
+#orderBtn{
+    background-image : url({{asset("bundles/Kingdom/image/icon/cart_order.png")}});    
+}
+#orderBtn:hover{
+    background-image : url({{asset("bundles/Kingdom/image/icon/cart_order_overall.png")}});
+}
+#shopBtn{
+    background-image : url({{asset("bundles/Kingdom/image/icon/cart_shopping.png")}})    
+}
+#shopBtn:hover{
+    background-image : url({{asset("bundles/Kingdom/image/icon/cart_shopping_overall.png")}});
+}
+</style>
+    
+<table class="topSizing"><tr>
+    <td>
+        {% include "KingdomFrontBundle:Mypage:_submenu.html.twig" %}
+    </td>
+    <td>
+<div class="mainContent">
+    <div id="endBox">
+            <img src="{{asset("bundles/Kingdom/image/icon/smile.png")}}" width="150"><br>
+        <span class="size18 bold">
+            감사합니다. <br>주문이 완료되었습니다.<br></span>
+        <span class="size14">
+            결제취소는 입금 후 30분내에 000-0000-0000으로 전화주세요.</span>        
+    </div>
+    <div id ="cartBtnSet">
+        <button id="orderBtn" class=cartBtn onclick="location.href='{{url("mypage_pay")}}'"></button>
+        <button id="shopBtn" class=cartBtn  onclick="location.href='{{url("product_index")}}'"></button>
+    </div>
+</div>                            
+    </td>
+</tr></table>
+    
+    
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}    
+<script src="{{asset("bundles/Kingdom/js/mypage.js")}}"></script>
+<script>    
+var action = "{{getActionName()}}";
+</script>
+{% endblock %}

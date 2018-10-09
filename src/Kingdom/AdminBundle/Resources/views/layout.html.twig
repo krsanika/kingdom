@@ -1,0 +1,32 @@
+{% extends "::base.html.twig" %}
+{% block title %} PICker ADMIN{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('bundles/Kingdom/css/common.css')}}" />
+    <link rel="stylesheet" href="{{asset('bundles/Kingdom/css/admin.css')}}" />
+    <!-- 합쳐지고 최소화된 최신 CSS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-wip/css/bootstrap.min.css">
+{% endblock %}
+
+{% block body %}
+<div id="contents">
+    {% block header %}
+        {% include "KingdomAdminBundle::header.html.twig" %}
+    {% endblock %}    
+    {% block contents %}
+
+    {% endblock %}
+
+    {% block footer %}
+        {% include "KingdomFrontBundle::footer.html.twig" %}
+    {% endblock %}
+</div>
+
+
+{% endblock %}
+
+{% block javascripts %}
+<script src="{{asset("bundles/Kingdom/js/jquery-2.1.1.min.js")}}"></script>
+
+{% endblock %}
+

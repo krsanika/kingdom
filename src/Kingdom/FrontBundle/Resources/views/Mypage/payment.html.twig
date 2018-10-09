@@ -1,0 +1,72 @@
+{% extends 'KingdomFrontBundle::layout.html.twig' %}
+
+{% block stylesheets %}	
+    {{ parent()}}
+    <link rel="stylesheet" href="{{asset("bundles/Kingdom/css/mypage.css")}}">    
+{% endblock %}
+
+{% block contents %}    
+<table class="topSizing"><tr>
+    <td>
+        {% include "KingdomFrontBundle:Mypage:_submenu.html.twig" %}
+    </td>
+    <td>
+<div class="mainContent">
+    <div class="myTitle" style="margin-bottom : 0px;">주문배송내역
+        <span class="size14" style="font-weight : normal;"> 3일내로 입금하지 않을 경우, 주문이 취소됩니다.</span>
+    </div>
+    
+    <table class="cartTable">
+        <tr height ="57px">
+            <th class="cartTh">번호</th>
+            <th class="cartTh">주문일시</th>
+            <th class="cartTh">상품코드</th>
+            <th class="cartTh">결재방법</th>
+            <th class="cartTh">주문금액</th>
+            <th class="cartTh">상태</th>
+            <th class="cartTh">상세보기</th>
+        </tr>
+        {% for order in ordereds %}
+        <tr style="height: 95px;">
+            <td>{{order.id}}</td>
+            <td>{{order.updated|date()}}</td>
+            <td>
+                {% for cart in order.carts %}
+                    <a href="{{url("product_index", {"quick" : cart.itemId.id})}}">
+                    {{cart.itemId.productId.authorId.id|codes(cart.itemId.productId.num, cart.itemId.category)}},
+                    </a><br>
+                {% endfor %}
+            </td>
+            <td>{{order.channel|channelStatus}}</td>
+            <td>{{order.pay|number_format()}}원</td>
+            <td>{{order.status|payStatus}}</td>
+            <td>
+                <button class="orderViewBtn" onclick="location.href='{{url("mypage_ordered", { id : order.id})}}';">보기</button>
+            </td>            
+        </tr>
+        {% endfor %}
+    </table>
+    
+    
+</div>            
+    </td>
+</tr></table>
+    
+    
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}    
+<script src="{{asset("bundles/Kingdom/js/mypage.js")}}"></script>
+<script>
+    var action = "{{getActionName()}}";
+    
+function orderView(id){
+
+}
+
+</script>
+{% endblock %}
+
+{# empty Twig template #}

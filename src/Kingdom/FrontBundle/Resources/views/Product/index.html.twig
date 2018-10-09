@@ -1,0 +1,27 @@
+{% extends 'KingdomFrontBundle::layout.html.twig' %}
+{# empty Twig template #}
+
+{% block stylesheets %}	
+    {{ parent()}}
+    <link rel="stylesheet" href="{{asset('bundles/Kingdom/css/product.css')}}" />
+{% endblock %}
+
+{% block contents %}
+       
+{% include "KingdomFrontBundle:Product:items.html.twig"  with {'products' : products}%}
+
+{% endblock %}
+
+
+{% block javascripts %}	
+    {{ parent()}}
+    <script src="{{asset("bundles/Kingdom/js/jquery.bottom-1.0.js")}}"></script>
+    <script src="{{asset("bundles/Kingdom/js/jquery.mousewheel.min.js")}}"></script>
+    <script src="{{asset("bundles/Kingdom/js/product.js")}}"></script>
+    <script src="{{asset("bundles/Kingdom/js/blocksit.min.js")}}"></script>
+    <script type="text/javascript">
+
+var addUrl = "{{url("product_add")}}";        
+    </script>
+   
+{% endblock %}

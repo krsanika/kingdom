@@ -1,0 +1,12 @@
+{% extends  'PristoAdminBundle::layout.html.twig' %}
+
+
+{% block contents %}
+
+유저페이지다 닝겐! <br>
+짬뽕이 맛있다 닝겐!<br>
+
+{% include 'PristoAdminBundle:User:_userlist.html.twig'  with {"users" : users}%}
+
+
+{% endblock %}
